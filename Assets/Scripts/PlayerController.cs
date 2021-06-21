@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     Animator m_anim = null;
     Rigidbody m_rb = null;
-    bool AttackFlag = false;
+    
 
     void Start()
     {
@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
         //m_movingSpeedをsubSpeedに保存しm_movingSpeedに0を入れて動きを止める
         subSpeed = m_movingSpeed;
         m_movingSpeed = 0;
+        m_rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
     //攻撃後に動き出す
     void EndMoveStop()

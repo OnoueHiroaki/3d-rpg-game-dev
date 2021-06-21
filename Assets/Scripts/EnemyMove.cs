@@ -38,7 +38,12 @@ public class EnemyMove : MonoBehaviour
             if (m_navMesh.remainingDistance > m_navMesh.stoppingDistance)
             {
                 m_rb.MovePosition(m_navMesh.desiredVelocity);
-                this.transform.LookAt(m_target.transform);
+                //this.transform.LookAt(m_target.transform);
+                var direction = m_target.transform.position - transform.position;
+                direction.y = 0;
+
+                var lookRotation = Quaternion.LookRotation(direction, Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
             }
             else
             {
