@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
-    private static int m_playerHp = 20;
-    private static int m_playerMp = 5;
-    private static int m_playerAttackPow = 5;
-    private static int m_playerMagicPow = 5;
-    private static int m_playerDefensivePower = 5;
+    public static int m_playerHp = 20;
+    public static int m_playerMp = 5;
+    public static int m_playerAttackPow = 5;
+    public static int m_playerMagicPow = 5;
+    public static int m_playerDefensivePower = 5;
     // private static int m_player
 
     Slider m_hpSlider;
@@ -27,7 +27,7 @@ public class PlayerStatus : MonoBehaviour
         m_mpSlider.value = m_playerMp;
         Attck();
     }
-    void Attck()
+    public void Attck()
     {
         if (Input.GetButtonDown("Fire1"))
         {
