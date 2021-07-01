@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\EnemyStatus.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus.cs" />
     <None Include="Assets\Kevin Iglesias\3DCharacterDummy\Readme.txt" />
