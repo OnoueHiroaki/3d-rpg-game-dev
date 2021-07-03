@@ -11,33 +11,36 @@ public class EnemyStatus : MonoBehaviour
     public int m_enemyAttackPow = 3;
     public int m_enemyMagicPow = 3;
     public int m_enemyDefensivePower = 3;
-    public int m_agility = 3;
+    public int m_enemyAgility = 3;
+    public int m_enemyMaxAgility = 100;
 
     public Slider m_hpSlider;//[SerializeField] private
+    public Slider m_agilitySlider;
     PlayerStatus m_player = default;
     void Start()
     {
         //m_hpSlider = GetComponent<Slider>();
         m_hpSlider.maxValue = m_enemyHp;
         m_hpSlider.value = m_enemyHp;
+        m_agilitySlider.maxValue = m_enemyMaxAgility;
+        m_agilitySlider.value = 0;
     }
 
     void Update()
     {
         EnemyDeath();
+        EnemyAttack();
+        m_agilitySlider.value += m_enemyAgility * Time.deltaTime;
     }
-    //public void EnemyAttack()
-    //{
-    //    playerHp -= m_enemyAttackPow;
-    //}
-    //public void EnemyMagicAttack()
-    //{
-    //    playerHp -= m_enemyMagicPow;
-    //}
-    //public void EnemyDmage(int playerAttackPow)
-    //{
-    //    m_enemyHp -= playerAttackPow;
-    //}
+    public void EnemyAttack()
+    {
+        if (m_agilitySlider.value == m_agilitySlider.maxValue)
+        {
+            m_player.m_hpSlider.value -= m_enemyAttackPow - m_player.m_playerDefensivePower;
+            m_agilitySlider.value = 0;
+        }
+    }
+
 
     void EnemyDeath()
     {

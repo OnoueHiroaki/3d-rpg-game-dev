@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
      public void Attack()
     {
         int enemyHp = m_enemy.m_enemyHp;
-        int playerHp = m_player.m_playerHp;
+        int playerHp = m_player.m_playerMaxHp;
         if (Input.GetButtonDown("Fire1")) 
         {
             //m_player.PlayerAttack(enemyHp);
