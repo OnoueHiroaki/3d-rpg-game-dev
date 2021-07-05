@@ -14,9 +14,9 @@ public class EnemyStatus : MonoBehaviour
     public int m_enemyAgility = 3;
     public int m_enemyMaxAgility = 100;
 
-    public Slider m_hpSlider;//[SerializeField] private
+    public Slider m_hpSlider;
     public Slider m_agilitySlider;
-    PlayerStatus m_player = default;
+    [SerializeField] private PlayerStatus m_player = default;
     void Start()
     {
         //m_hpSlider = GetComponent<Slider>();
@@ -28,9 +28,9 @@ public class EnemyStatus : MonoBehaviour
 
     void Update()
     {
-        EnemyDeath();
-        EnemyAttack();
-        m_agilitySlider.value += m_enemyAgility * Time.deltaTime;
+        //EnemyDeath();
+        //EnemyAttack();
+        //m_agilitySlider.value += m_enemyAgility * Time.deltaTime;
     }
     public void EnemyAttack()
     {
@@ -42,7 +42,7 @@ public class EnemyStatus : MonoBehaviour
     }
 
 
-    void EnemyDeath()
+    public void EnemyDeath()
     {
         if (m_hpSlider.value == 0)
         {

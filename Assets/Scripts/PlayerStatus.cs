@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -22,9 +23,9 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerMaxAgility = 100;
     public Slider m_hpSlider;
     
-    [SerializeField] private Slider m_mpSlider;
+    public Slider m_mpSlider;
 
-    [SerializeField] private Slider m_agilitySlider;
+    public Slider m_agilitySlider;
 
     [SerializeField] private EnemyStatus m_enemy = default;
     void Start()
@@ -37,7 +38,7 @@ public class PlayerStatus : MonoBehaviour
 
     void Update()
     {
-        m_agilitySlider.value += m_playerAgility * Time.deltaTime;
+        //m_agilitySlider.value += m_playerAgility * Time.deltaTime;
     }
     public void PlayerAttack()
     {
@@ -50,5 +51,9 @@ public class PlayerStatus : MonoBehaviour
     public void PlayerMagicAttack()
     {
         m_enemy.m_enemyHp -= m_playerMagicPow;
+    }
+    public void PlayerEscape()
+    {
+        SceneManager.LoadScene("ExploreScene");
     }
 }
