@@ -21,24 +21,21 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerAgility = 3;
 
     public int m_playerMaxAgility = 100;
+
     public Slider m_hpSlider;
-    
+
     public Slider m_mpSlider;
 
     public Slider m_agilitySlider;
 
-    [SerializeField] private EnemyStatus m_enemy = default;
+    [SerializeField] private EnemyStatus m_enemy;
     void Start()
     {
-        m_hpSlider.maxValue = m_playerMaxHp;
-        m_hpSlider.value = m_playerCurrentHp;
-        m_agilitySlider.maxValue = m_playerMaxAgility;
-        m_agilitySlider.value = 0;
+       
     }
 
     void Update()
     {
-        //m_agilitySlider.value += m_playerAgility * Time.deltaTime;
     }
     public void PlayerAttack()
     {

@@ -1,37 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    EnemyStatus m_enemy = default;
-    PlayerStatus m_player = default;
-    
+    [SerializeField] private PlayerStatus instance;
 
+    private int m_hp;
     void Start()
     {
-        m_player = GetComponent<PlayerStatus>();
-        m_enemy = GetComponent<EnemyStatus>();
     }
 
     void Update()
     {
+
+    }
+    void KeepPlayerData()
+    {
+        SceneManager.sceneLoaded += SceneLoad;
         
     }
-     public void Attack()
+    void SceneLoad(Scene scene,LoadSceneMode loadSceneMode)
     {
-        int enemyHp = m_enemy.m_enemyHp;
-        int playerHp = m_player.m_playerMaxHp;
-        if (Input.GetButtonDown("Fire1")) 
-        {
-            //m_player.PlayerAttack(enemyHp);
-        }
-        //m_enemy.EnemyAttack(playerHp);
+        m_hp = instance.m_playerCurrentHp;
+        SceneManager.sceneLoaded -= SceneLoad;
     }
-    //public void Damage()
-    //{
-    //    int player = m_player.m_playerAttackPow;
-    //    m_enemy.EnemyDamage(player);
-    //}
-
 }

@@ -8,8 +8,8 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private Transform m_target;
-    [SerializeField] private float m_enemySpeed = 0f;
-    bool m_isActive = false;
+    [SerializeField] private float m_enemySpeed;
+    bool m_isActive;
     NavMeshAgent m_navMesh;
     Rigidbody m_rb;
     Animator m_anim;

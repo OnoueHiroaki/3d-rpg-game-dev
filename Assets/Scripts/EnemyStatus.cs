@@ -16,21 +16,14 @@ public class EnemyStatus : MonoBehaviour
 
     public Slider m_hpSlider;
     public Slider m_agilitySlider;
-    [SerializeField] private PlayerStatus m_player = default;
+    [SerializeField] private PlayerStatus m_player;
     void Start()
     {
-        //m_hpSlider = GetComponent<Slider>();
-        m_hpSlider.maxValue = m_enemyHp;
-        m_hpSlider.value = m_enemyHp;
-        m_agilitySlider.maxValue = m_enemyMaxAgility;
-        m_agilitySlider.value = 0;
+        
     }
 
     void Update()
     {
-        //EnemyDeath();
-        //EnemyAttack();
-        //m_agilitySlider.value += m_enemyAgility * Time.deltaTime;
     }
     public void EnemyAttack()
     {

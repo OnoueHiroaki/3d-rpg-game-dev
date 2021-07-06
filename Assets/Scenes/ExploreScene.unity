@@ -271,6 +271,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &991992881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8782244935803326485, guid: c66064d56e3abe94685216320663f0cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 8782244936998349840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &991992882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991992881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a2116e8500e894bbb7fa3a853da8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerMaxHp: 20
+  m_playerCurrentHp: 20
+  m_playerMp: 5
+  m_playerAttackPow: 5
+  m_playerMagicPow: 5
+  m_playerDefensivePower: 5
+  m_playerAgility: 3
+  m_playerMaxAgility: 100
+  m_hpSlider: {fileID: 0}
+  m_mpSlider: {fileID: 0}
+  m_agilitySlider: {fileID: 0}
+  m_enemy: {fileID: 0}
 --- !u!1 &1158268288
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +810,7 @@ PrefabInstance:
     - target: {fileID: 1683763029789124314, guid: 3bd538659cdbd324e867fac78a1570c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bd538659cdbd324e867fac78a1570c2, type: 3}

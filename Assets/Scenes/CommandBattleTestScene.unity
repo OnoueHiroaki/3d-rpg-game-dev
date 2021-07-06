@@ -851,7 +851,6 @@ GameObject:
   - component: {fileID: 958029477}
   - component: {fileID: 958029476}
   - component: {fileID: 958029475}
-  - component: {fileID: 958029478}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -922,8 +921,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 958029478}
-        m_MethodName: Attack
+      - m_Target: {fileID: 1351820152}
+        m_MethodName: PlayerAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -970,20 +969,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958029473}
   m_CullTransparentMesh: 0
---- !u!114 &958029478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958029473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8299d58401dd4124c9f56ea10ba3949f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player: {fileID: 1351820152}
-  m_enemy: {fileID: 1478180533}
 --- !u!1 &973718297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,7 +1649,7 @@ MonoBehaviour:
   m_enemyAttackPow: 8
   m_enemyMagicPow: 3
   m_enemyDefensivePower: 3
-  m_enemyAgility: 5
+  m_enemyAgility: 50
   m_enemyMaxAgility: 100
   m_hpSlider: {fileID: 1091531255}
   m_agilitySlider: {fileID: 1512257683}
@@ -2016,7 +2001,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1782319140}
-  - component: {fileID: 1782319139}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -2024,20 +2008,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1782319139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782319138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8299d58401dd4124c9f56ea10ba3949f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player: {fileID: 1351820152}
-  m_enemy: {fileID: 1478180533}
 --- !u!4 &1782319140
 Transform:
   m_ObjectHideFlags: 0
@@ -2207,7 +2177,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1822515147}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1351820152}
+        m_MethodName: PlayerEscape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1822515147
 MonoBehaviour:
   m_ObjectHideFlags: 0

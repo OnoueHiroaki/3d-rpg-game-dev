@@ -18,12 +18,12 @@ public class PlayerController : MonoBehaviour
     /// <summary>接地判定の際、中心 (Pivot) からどれくらいの距離を「接地している」と判定するかの長さ</summary>
     [SerializeField] float m_isGroundedLength = 1.1f;
     //当たり判定
-    [SerializeField] Collider m_attackTriger = null;
+    [SerializeField] Collider m_attackTriger;
     //m_movingSpeedを一時的に保存する変数
     float subSpeed = 0f;
 
-    Animator m_anim = null;
-    Rigidbody m_rb = null;
+    Animator m_anim;
+    Rigidbody m_rb;
     
 
     void Start()
