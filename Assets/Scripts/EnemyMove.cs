@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private Transform m_target;

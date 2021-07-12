@@ -6,29 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
-    //プレイヤーの最大体力
+    //最大HP
     public int m_playerMaxHp = 20;
+    //現在のHP
     public int m_playerCurrentHp = 20;
-    //プレイヤーのMP
+    //現在のMP
     public int m_playerMp = 5;
-    //プレイヤーの攻撃力
+    //プレイヤー自身の攻撃力
     public int m_playerAttackPow = 5;
-    //プレイヤーの魔法攻撃力
+    //プレイヤー自身の魔法攻撃力
     public int m_playerMagicPow = 5;
-    //プレイヤーの守備力
+    //プレイヤー自身の守備力
     public int m_playerDefensivePower = 5;
     //プレイヤーの素早さ
     public int m_playerAgility = 3;
-
+    //素早さの最大値(AgilityBarのMaxValue)
     public int m_playerMaxAgility = 100;
 
-    public Slider m_hpSlider;
-
-    public Slider m_mpSlider;
-
-    public Slider m_agilitySlider;
-
-    [SerializeField] private EnemyStatus m_enemy;
+    static bool m_isExists;
     void Start()
     {
        
@@ -37,20 +32,16 @@ public class PlayerStatus : MonoBehaviour
     void Update()
     {
     }
-    public void PlayerAttack()
+    void Awake()
     {
-        if (m_agilitySlider.value == m_agilitySlider.maxValue)
+        if (m_isExists == true)
         {
-            m_enemy.m_hpSlider.value -= m_playerAttackPow - m_enemy.m_enemyDefensivePower;
-            m_agilitySlider.value = 0;
+            Destroy(this.gameObject);
         }
-    }
-    public void PlayerMagicAttack()
-    {
-        m_enemy.m_enemyHp -= m_playerMagicPow;
-    }
-    public void PlayerEscape()
-    {
-        SceneManager.LoadScene("ExploreScene");
+        else
+        {
+            m_isExists = true;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 }

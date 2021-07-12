@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-/// <summary>
-/// Rigidbody を使って Humanoid タイプのキャラクターをアニメーションさせながら動かすコンポーネント
-/// 入力を受け取り、それに従ってオブジェクトをメインカメラと相対的な方向に動かす。
-/// </summary>
+
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
