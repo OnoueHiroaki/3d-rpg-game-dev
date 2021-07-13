@@ -10,8 +10,10 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerMaxHp = 20;
     //現在のHP
     public int m_playerCurrentHp = 20;
+    //最大MP
+    public int m_playerMaxMp = 10;
     //現在のMP
-    public int m_playerMp = 5;
+    public int m_playerCurrentMp = 5;
     //プレイヤー自身の攻撃力
     public int m_playerAttackPow = 5;
     //プレイヤー自身の魔法攻撃力
