@@ -1,15 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
     //最大HP
-    public int m_playerMaxHp = 20;
+    public int m_playerMaxHP = 20;
     //現在のHP
-    public int m_playerCurrentHp = 20;
+    public int PlayerCurrentHP { get; set; } = 20;
     //最大MP
     public int m_playerMaxMp = 10;
     //現在のMP
@@ -28,6 +26,7 @@ public class PlayerStatus : MonoBehaviour
     static bool m_isExists;
     DamageCaster m_damage;
     EnemyStatus m_enemy;
+    public event Action OnPlayeHPChange;
     void Awake()
     {
         if (m_isExists == true)
@@ -40,13 +39,14 @@ public class PlayerStatus : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    void Start()
+    //event
+    public void PlayerDamage(int damage)
     {
-       
-    }
-
-    void Update()
-    {
-
+        PlayerCurrentHP -= damage;
+        OnPlayeHPChange?.Invoke();
+        if (m_playerCurrentMp <= 0)
+        {
+            //HPがゼロになった時の処理
+        }
     }
 }

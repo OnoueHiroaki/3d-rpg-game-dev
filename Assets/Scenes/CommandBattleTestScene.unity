@@ -1519,6 +1519,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &683930505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 683930507}
+  - component: {fileID: 683930506}
+  m_Layer: 0
+  m_Name: DamageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &683930506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683930505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d96c31ecb2eda4ba9a0e279a2cdfad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &683930507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683930505}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &877909426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1574,7 @@ GameObject:
   - component: {fileID: 877909429}
   - component: {fileID: 877909428}
   m_Layer: 5
-  m_Name: Text
+  m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2341,13 +2384,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a2116e8500e894bbb7fa3a853da8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerMaxHp: 20
-  m_playerCurrentHp: 20
+  m_playerMaxHP: 20
   m_playerMaxMp: 10
   m_playerCurrentMp: 10
   m_playerAttackPow: 5
   m_playerMagicPow: 5
-  m_playerDefensivePower: 5
+  m_playerDefensivePower: 10
   m_playerAgility: 50
   m_playerMaxAgility: 100
 --- !u!1 &1406363409
@@ -2531,8 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d603179b4ffeab243bbad7cb1edc87c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyHp: 10
-  m_enemyMp: 3
+  EnemyMP: 3
   m_enemyAttackPow: 8
   m_enemyMagicPow: 3
   m_enemyDefensivePower: 3
@@ -2704,50 +2745,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606871357}
   m_CullTransparentMesh: 0
---- !u!1 &1628263032
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1628263034}
-  - component: {fileID: 1628263033}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1628263033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628263032}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e196c2afe69a5794794e074b98981a01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player: {fileID: 0}
---- !u!4 &1628263034
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628263032}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650216558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,6 +3033,7 @@ MonoBehaviour:
   m_firstPanel: {fileID: 558110705}
   m_secondPanel: {fileID: 325843433}
   m_enemy: {fileID: 1478180533}
+  m_damage: {fileID: 683930506}
 --- !u!4 &1782319140
 Transform:
   m_ObjectHideFlags: 0
