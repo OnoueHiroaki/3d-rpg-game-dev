@@ -17,17 +17,18 @@ public class CommandBattleManager : MonoBehaviour
     //敵の素早さのスライダー
     [SerializeField] private Slider m_enemyAgilitySlider;
 
+    [SerializeField] private Text m_hpText;
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
     [SerializeField] private EnemyStatus m_enemy;
     PlayerStatus m_player;
-    bool m_firstOpen;
-    bool m_secondOpen;
+    DamageCaster m_damage;
+
     void Start()
     {
         m_player = GameObject.Find("Player").GetComponent<PlayerStatus>();
-        m_firstPanel.SetBool("FirstOpen",true);
-        m_secondPanel.SetBool("SecondOpen",false);
+        m_firstPanel.SetBool("FirstOpen", true);
+        m_secondPanel.SetBool("SecondOpen", false);
         //m_secondPanel.SetActive(false);
         //プレイヤーのスライダー
         m_playerHpSlider.maxValue = m_player.m_playerMaxHp;
@@ -49,6 +50,7 @@ public class CommandBattleManager : MonoBehaviour
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
         EnemyDeath();
+        //m_hpText.text = string.Format("HP        ", m_player.m_playerCurrentHp);
     }
     /// <summary>
     /// プレイヤーがボタンを使って攻撃するためのメソッド
@@ -57,12 +59,13 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            m_enemyHpSlider.value -= m_player.m_playerAttackPow - m_enemy.m_enemyDefensivePower;
-            m_enemy.m_enemyHp -= m_player.m_playerAttackPow - m_enemy.m_enemyDefensivePower;
-            m_playerAgilitySlider.value = 0;
+            m_damage.EnemyDamage(m_enemyHpSlider,m_player.m_playerAttackPow,m_enemy.m_enemyDefensivePower);
+            m_damage.EnemyDamage(m_enemy.m_enemyHp, m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower);
+            //m_damage.EnemyDamageText(m_hpText);
+            m_damage.EndAttack(m_playerAgilitySlider);
         }
     }
-    public void MagicArrow()
+    public void MagicAttack()
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMpSlider.value >= 3)
         {
@@ -83,13 +86,14 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>
     /// 敵の攻撃処理
     /// </summary>
-    void EnemyAttack()
+    private void EnemyAttack()
     {
         if (m_enemyAgilitySlider.value == m_enemyAgilitySlider.maxValue)
         {
-            m_playerHpSlider.value -= m_enemy.m_enemyAttackPow - m_player.m_playerDefensivePower;
-            m_player.m_playerCurrentHp -= m_enemy.m_enemyAttackPow - m_player.m_playerDefensivePower;
-            m_enemyAgilitySlider.value = 0;
+            m_damage.PlayerDamage(m_playerHpSlider,m_enemy.m_enemyAttackPow,m_player.m_playerDefensivePower);
+            m_damage.PlayerDamage(m_player.m_playerCurrentHp, m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower);
+            m_damage.EndAttack(m_enemyAgilitySlider);
+            //m_damage.EnemyDamageText(m_hpText);
         }
     }
     /// <summary>
@@ -104,12 +108,12 @@ public class CommandBattleManager : MonoBehaviour
     }
     public void FirstPanelInactive()
     {
-        m_firstPanel.SetBool("FirstOpen",false);
-        m_secondPanel.SetBool("SecondOpen",true);
+        m_firstPanel.SetBool("FirstOpen", false);
+        m_secondPanel.SetBool("SecondOpen", true);
     }
     public void SecondPanelInactive()
     {
-        m_firstPanel.SetBool("FirstOpen",true);
-        m_secondPanel.SetBool("SecondOpen",false);
+        m_firstPanel.SetBool("FirstOpen", true);
+        m_secondPanel.SetBool("SecondOpen", false);
     }
 }

@@ -26,14 +26,8 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerMaxAgility = 100;
 
     static bool m_isExists;
-    void Start()
-    {
-       
-    }
-
-    void Update()
-    {
-    }
+    DamageCaster m_damage;
+    EnemyStatus m_enemy;
     void Awake()
     {
         if (m_isExists == true)
@@ -45,5 +39,14 @@ public class PlayerStatus : MonoBehaviour
             m_isExists = true;
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+    void Start()
+    {
+       
+    }
+
+    void Update()
+    {
+
     }
 }
