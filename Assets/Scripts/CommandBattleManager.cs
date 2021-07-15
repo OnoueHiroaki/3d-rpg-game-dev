@@ -7,17 +7,18 @@ using UnityEngine.SceneManagement;
 public class CommandBattleManager : MonoBehaviour
 {
     //プレイヤーのHPスライダー
-    [SerializeField] private Slider m_playerHpSlider;
+    [SerializeField] private Slider m_playerHPSlider;
     //プレイヤーのMPスライダー
-    [SerializeField] private Slider m_playerMpSlider;
+    [SerializeField] private Slider m_playerMPSlider;
     //プレイヤーの素早さのスライダー
     [SerializeField] private Slider m_playerAgilitySlider;
     //敵のHPスライダー
-    [SerializeField] private Slider m_enemyHpSlider;
+    [SerializeField] private Slider m_enemyHPSlider;
     //敵の素早さのスライダー
     [SerializeField] private Slider m_enemyAgilitySlider;
 
-    [SerializeField] private Text m_hpText;
+    [SerializeField] private Text m_hPText;
+    [SerializeField] private Text m_mPText;
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
     [SerializeField] private EnemyStatus m_enemy;
@@ -29,21 +30,21 @@ public class CommandBattleManager : MonoBehaviour
         m_player = GameObject.Find("Player").GetComponent<PlayerStatus>();
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
-        //m_secondPanel.SetActive(false);
         //プレイヤーのスライダー
-        m_playerHpSlider.maxValue = m_player.m_playerMaxHP;
-        m_playerHpSlider.value = m_player.PlayerCurrentHP;
-        m_playerMpSlider.maxValue = m_player.m_playerMaxMp;
-        m_playerMpSlider.value = m_player.m_playerCurrentMp;
+        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
+        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
+        m_playerMPSlider.value = m_player.PlayerCurrentMP;
         m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
         m_playerAgilitySlider.value = 0;
         //敵のスライダー
-        m_enemyHpSlider.maxValue = m_enemy.EnemyHP;
-        m_enemyHpSlider.value = m_enemy.EnemyHP;
+        m_enemyHPSlider.maxValue = m_enemy.EnemyHP;
+        m_enemyHPSlider.value = m_enemy.EnemyHP;
         m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
         m_enemyAgilitySlider.value = 0;
 
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
+        m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
         m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate; 
     }
 
@@ -53,7 +54,8 @@ public class CommandBattleManager : MonoBehaviour
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
         EnemyDeath();
-        //m_hpText.text = string.Format("HP        ", m_player.m_playerCurrentHp);
+        m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
+        m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }
     /// <summary>
     /// プレイヤーがボタンを使って攻撃するためのメソッド
@@ -67,11 +69,13 @@ public class CommandBattleManager : MonoBehaviour
             EndAttack(m_playerAgilitySlider);
         }
     }
-    public void MagicAttack()
+    public void MagicArrowAttack()
     {
-        if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMpSlider.value >= 3)
+        if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            
+            m_enemy.EnemyDamage(m_damage.PlayerMagicArrowAttack(m_player.m_playerMagicPow,m_enemy.m_enemyDefensivePower));
+            m_player.PlayerMPDown(3);
+            EndAttack(m_playerAgilitySlider);
         }
     }
     /// <summary>
@@ -96,18 +100,22 @@ public class CommandBattleManager : MonoBehaviour
     }
     void PlayerHPSliderUpdate()
     {
-        m_playerHpSlider.value = m_player.PlayerCurrentHP;
+        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+    }
+    void PlayerMPSliderUpdate()
+    {
+        m_playerMPSlider.value = m_player.PlayerCurrentMP;
     }
     void EnemyHPSliderUpdate()
     {
-        m_enemyHpSlider.value = m_enemy.EnemyHP;
+        m_enemyHPSlider.value = m_enemy.EnemyHP;
     }
     /// <summary>
     /// 敵の死亡判定
     /// </summary>
     void EnemyDeath()
     {
-        if (m_enemyHpSlider.value == 0)
+        if (m_enemyHPSlider.value == 0)
         {
             SceneManager.LoadScene("ExploreScene");
         }

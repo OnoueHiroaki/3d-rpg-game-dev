@@ -884,7 +884,7 @@ PrefabInstance:
     - target: {fileID: 8782244935803326485, guid: c66064d56e3abe94685216320663f0cd,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: MaleDummy
       objectReference: {fileID: 0}
     - target: {fileID: 8782244935803326485, guid: c66064d56e3abe94685216320663f0cd,
         type: 3}

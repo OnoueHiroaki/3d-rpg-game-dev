@@ -11,7 +11,7 @@ public class PlayerStatus : MonoBehaviour
     //最大MP
     public int m_playerMaxMp = 10;
     //現在のMP
-    public int m_playerCurrentMp = 5;
+    public int PlayerCurrentMP { get; set; } = 10;
     //プレイヤー自身の攻撃力
     public int m_playerAttackPow = 5;
     //プレイヤー自身の魔法攻撃力
@@ -24,9 +24,8 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerMaxAgility = 100;
 
     static bool m_isExists;
-    DamageCaster m_damage;
-    EnemyStatus m_enemy;
     public event Action OnPlayeHPChange;
+    public event Action OnPlayerMPChange;
     void Awake()
     {
         if (m_isExists == true)
@@ -44,9 +43,18 @@ public class PlayerStatus : MonoBehaviour
     {
         PlayerCurrentHP -= damage;
         OnPlayeHPChange?.Invoke();
-        if (m_playerCurrentMp <= 0)
+        if (PlayerCurrentMP <= 0)
         {
             //HPがゼロになった時の処理
+        }
+    }
+    public void PlayerMPDown(int mpDown)
+    {
+        PlayerCurrentMP -= mpDown;
+        OnPlayerMPChange?.Invoke();
+        if (PlayerCurrentMP <= mpDown)
+        {
+            Debug.Log("MPが足りません");
         }
     }
 }
