@@ -7,11 +7,11 @@ public class PlayerStatus : MonoBehaviour
     //最大HP
     public int m_playerMaxHP = 20;
     //現在のHP
-    public int PlayerCurrentHP { get; set; } = 20;
+    public int PlayerCurrentHP { get;private set; } = 20;
     //最大MP
     public int m_playerMaxMp = 10;
     //現在のMP
-    public int PlayerCurrentMP { get; set; } = 10;
+    public int PlayerCurrentMP { get;private set; } = 10;
     //プレイヤー自身の攻撃力
     public int m_playerAttackPow = 5;
     //プレイヤー自身の魔法攻撃力
@@ -43,7 +43,7 @@ public class PlayerStatus : MonoBehaviour
     {
         PlayerCurrentHP -= damage;
         OnPlayeHPChange?.Invoke();
-        if (PlayerCurrentMP <= 0)
+        if (PlayerCurrentHP <= 0)
         {
             //HPがゼロになった時の処理
         }

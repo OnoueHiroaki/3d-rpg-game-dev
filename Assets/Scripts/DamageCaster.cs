@@ -10,4 +10,9 @@ public class DamageCaster : MonoBehaviour
     public int EnemyNormalAttack(int attack, int defense) => attack - defense / 2;
 
     public int PlayerMagicArrowAttack(int attack, int defense) => attack + 5 - defense / 2;
+
+    interface IDmage
+    {
+        int AddDamage(int attack,int defense);
+    }
 }

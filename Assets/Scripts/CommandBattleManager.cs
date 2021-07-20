@@ -27,6 +27,7 @@ public class CommandBattleManager : MonoBehaviour
 
     void Start()
     {
+        //m_enemy.m_enemyCurrentHP = m_enemy.m_enemyMaxHP;
         m_player = GameObject.Find("Player").GetComponent<PlayerStatus>();
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
@@ -38,14 +39,15 @@ public class CommandBattleManager : MonoBehaviour
         m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
         m_playerAgilitySlider.value = 0;
         //敵のスライダー
-        m_enemyHPSlider.maxValue = m_enemy.EnemyHP;
-        m_enemyHPSlider.value = m_enemy.EnemyHP;
+        m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
+        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
         m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
         m_enemyAgilitySlider.value = 0;
 
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
-        m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate; 
+        //m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
+
     }
 
     void Update()
@@ -66,6 +68,8 @@ public class CommandBattleManager : MonoBehaviour
         {
             m_enemy.EnemyDamage(m_damage.PlayerNormalAttack(m_player.m_playerAttackPow,m_enemy.m_enemyDefensivePower));
             //m_damage.EnemyDamageText(m_hpText);
+
+            EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -75,6 +79,7 @@ public class CommandBattleManager : MonoBehaviour
         {
             m_enemy.EnemyDamage(m_damage.PlayerMagicArrowAttack(m_player.m_playerMagicPow,m_enemy.m_enemyDefensivePower));
             m_player.PlayerMPDown(3);
+            EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -108,16 +113,16 @@ public class CommandBattleManager : MonoBehaviour
     }
     void EnemyHPSliderUpdate()
     {
-        m_enemyHPSlider.value = m_enemy.EnemyHP;
+        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
     }
     /// <summary>
     /// 敵の死亡判定
     /// </summary>
     void EnemyDeath()
     {
-        if (m_enemyHPSlider.value == 0)
+        if (m_enemyHPSlider.value <= 0)
         {
-            SceneManager.LoadScene("ExploreScene");
+            //SceneManager.LoadScene("ExploreScene");
         }
     }
     public void FirstPanelInactive()

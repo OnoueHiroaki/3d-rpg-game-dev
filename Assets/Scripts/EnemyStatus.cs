@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
+    public int m_enemyMaxHP = 30;
+    public int m_enemyCurrentHP = 20;
     //敵のHP
-    public int EnemyHP { get ; set; } = 30;
+    public int m_enemyHP  = 30;
     //敵のMP
     public int EnemyMP = 3;
     //敵の攻撃力
@@ -18,12 +20,13 @@ public class EnemyStatus : MonoBehaviour
     public int m_enemyAgility = 3;
     //敵の最大素早さ(素早さのMaxValue)
     public int m_enemyMaxAgility = 100;
-    
+
     public event Action OnEnemyHPChange;
-    
+
     public void EnemyDamage(int damage)
     {
-        EnemyHP -= damage;
+        m_enemyCurrentHP -= damage;
         OnEnemyHPChange?.Invoke();
     }
+    
 }

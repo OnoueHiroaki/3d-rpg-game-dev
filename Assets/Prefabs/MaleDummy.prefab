@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 8782244935812686447}
   - component: {fileID: 8782244935498320726}
   - component: {fileID: 8782244935498320724}
-  - component: {fileID: 3229710952371041950}
   - component: {fileID: 8782244935498320725}
   m_Layer: 0
   m_Name: MaleDummy
@@ -221,25 +220,6 @@ CapsuleCollider:
   m_Height: 1.9235065
   m_Direction: 1
   m_Center: {x: 0, y: 0.95, z: 0}
---- !u!114 &3229710952371041950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8782244935803326485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a2116e8500e894bbb7fa3a853da8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerMaxHP: 20
-  m_playerMaxMp: 10
-  m_playerAttackPow: 5
-  m_playerMagicPow: 5
-  m_playerDefensivePower: 5
-  m_playerAgility: 3
-  m_playerMaxAgility: 100
 --- !u!114 &8782244935498320725
 MonoBehaviour:
   m_ObjectHideFlags: 0
