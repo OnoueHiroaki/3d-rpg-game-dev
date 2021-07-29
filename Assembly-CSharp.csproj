@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AttackIdentification.cs" />
     <Compile Include="Assets\Scripts\CommandBattleManager.cs" />
     <Compile Include="Assets\Scripts\DamageCaster.cs" />
     <Compile Include="Assets\Scripts\EnemyGenerator.cs" />

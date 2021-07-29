@@ -23,7 +23,6 @@ public class PlayerStatus : MonoBehaviour
     public int m_playerAgility = 3;
     //素早さの最大値(AgilityBarのMaxValue)
     public int m_playerMaxAgility = 100;
-
     public event Action OnPlayeHPChange;
     public event Action OnPlayerMPChange;
     EnemyStatus m_enemy;
