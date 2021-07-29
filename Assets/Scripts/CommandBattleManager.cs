@@ -28,14 +28,14 @@ public class CommandBattleManager : MonoBehaviour
     void Start()
     {
         //m_enemy.m_enemyCurrentHP = m_enemy.m_enemyMaxHP;
-        m_player = GameObject.Find("Player").GetComponent<PlayerStatus>();
+        m_player = PlayerStatus.Instance;
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
         //プレイヤーのスライダー
         m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
-        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerHPSlider.value = PlayerStatus.PlayerCurrentHP;
         m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
-        m_playerMPSlider.value = m_player.PlayerCurrentMP;
+        m_playerMPSlider.value = PlayerStatus.PlayerCurrentMP;
         m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
         m_playerAgilitySlider.value = 0;
         //敵のスライダー
@@ -56,8 +56,8 @@ public class CommandBattleManager : MonoBehaviour
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
         EnemyDeath();
-        m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
-        m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
+        m_hPText.text = "HP            " + PlayerStatus.PlayerCurrentHP;
+        m_mPText.text = "MP            " + PlayerStatus.PlayerCurrentMP;
     }
     /// <summary>
     /// プレイヤーがボタンを使って攻撃するためのメソッド
@@ -105,11 +105,11 @@ public class CommandBattleManager : MonoBehaviour
     }
     void PlayerHPSliderUpdate()
     {
-        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerHPSlider.value = PlayerStatus.PlayerCurrentHP;
     }
     void PlayerMPSliderUpdate()
     {
-        m_playerMPSlider.value = m_player.PlayerCurrentMP;
+        m_playerMPSlider.value = PlayerStatus.PlayerCurrentMP;
     }
     void EnemyHPSliderUpdate()
     {

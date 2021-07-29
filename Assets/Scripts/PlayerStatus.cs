@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerStatus : MonoBehaviour
 {
+    public static PlayerStatus Instance { get; private set; }
     //最大HP
     public int m_playerMaxHP = 20;
     //現在のHP
-    public int PlayerCurrentHP { get;private set; } = 20;
+    public static int PlayerCurrentHP { get; private set; } = 20;
     //最大MP
     public int m_playerMaxMp = 10;
     //現在のMP
-    public int PlayerCurrentMP { get;private set; } = 10;
+    public static int PlayerCurrentMP { get; private set; } = 10;
     //プレイヤー自身の攻撃力
     public int m_playerAttackPow = 5;
     //プレイヤー自身の魔法攻撃力
@@ -23,20 +24,17 @@ public class PlayerStatus : MonoBehaviour
     //素早さの最大値(AgilityBarのMaxValue)
     public int m_playerMaxAgility = 100;
 
-    static bool m_isExists;
     public event Action OnPlayeHPChange;
     public event Action OnPlayerMPChange;
-    void Awake()
+    EnemyStatus m_enemy;
+    private void Awake()
     {
-        if (m_isExists == true)
+        if (Instance)
         {
             Destroy(this.gameObject);
+            return; 
         }
-        else
-        {
-            m_isExists = true;
-            DontDestroyOnLoad(this.gameObject);
-        }
+        Instance = this;
     }
     //event
     public void PlayerDamage(int damage)

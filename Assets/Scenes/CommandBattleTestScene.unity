@@ -121,6 +121,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &47322671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47322673}
+  - component: {fileID: 47322672}
+  m_Layer: 0
+  m_Name: PlayerData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &47322672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47322671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a2116e8500e894bbb7fa3a853da8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerMaxHP: 20
+  m_playerMaxMp: 10
+  m_playerAttackPow: 5
+  m_playerMagicPow: 5
+  m_playerDefensivePower: 5
+  m_playerAgility: 3
+  m_playerMaxAgility: 100
+--- !u!4 &47322673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47322671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &51805366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,7 +2415,6 @@ GameObject:
   - component: {fileID: 1351820150}
   - component: {fileID: 1351820149}
   - component: {fileID: 1351820148}
-  - component: {fileID: 1351820152}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2448,25 +2497,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1351820152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351820147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a2116e8500e894bbb7fa3a853da8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerMaxHP: 20
-  m_playerMaxMp: 10
-  m_playerAttackPow: 5
-  m_playerMagicPow: 5
-  m_playerDefensivePower: 10
-  m_playerAgility: 50
-  m_playerMaxAgility: 100
 --- !u!1 &1406363409
 GameObject:
   m_ObjectHideFlags: 0
