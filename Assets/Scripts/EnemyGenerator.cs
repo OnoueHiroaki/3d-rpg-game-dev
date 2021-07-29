@@ -6,8 +6,8 @@ public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField] private Vector3[] m_position;
     [SerializeField] private GameObject m_enemy;
-    private int r;
-    void Start()
+    public int r;
+    void Awake()
     {
         EnemyGenerate();
     }

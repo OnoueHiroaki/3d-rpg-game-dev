@@ -5,8 +5,17 @@ using UnityEngine.UI;
 
 public class AttackIdentification : MonoBehaviour
 {
-    [SerializeField] Button[] m_enemy;
+    [SerializeField] GameObject[] m_enemy;
     private int m_enemyNum;
+    [SerializeField] EnemyGenerator instance;
+    private void Start()
+    {
+        Debug.Log(instance.r);
+        for (int i = 0; i < instance.r; i++)
+        {
+            m_enemy[i].SetActive(true);
+        }
+    }
     public int PlayerAttackIdentification()
     {
         return m_enemyNum;
