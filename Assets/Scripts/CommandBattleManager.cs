@@ -21,9 +21,9 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] private Text m_mPText;
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
-    [SerializeField] private EnemyStatus m_enemy;
+    [SerializeField] private MushroomEnemyStatus m_enemy;
     PlayerStatus m_player;
-    [SerializeField]private DamageCaster m_damage;
+    [SerializeField] private DamageCaster m_damage;
 
     void Start()
     {
@@ -31,23 +31,12 @@ public class CommandBattleManager : MonoBehaviour
         m_player = PlayerStatus.Instance;
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
-        //プレイヤーのスライダー
-        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
-        m_playerHPSlider.value = PlayerStatus.PlayerCurrentHP;
-        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
-        m_playerMPSlider.value = PlayerStatus.PlayerCurrentMP;
-        m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
-        m_playerAgilitySlider.value = 0;
-        //敵のスライダー
-        m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
-        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
-        m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
-        m_enemyAgilitySlider.value = 0;
-
+        PlayerUI();
+        EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
         //m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
-
+        var damage = GetComponent<IDamagable>();
     }
 
     void Update()
@@ -56,8 +45,8 @@ public class CommandBattleManager : MonoBehaviour
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
         EnemyDeath();
-        m_hPText.text = "HP            " + PlayerStatus.PlayerCurrentHP;
-        m_mPText.text = "MP            " + PlayerStatus.PlayerCurrentMP;
+        m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
+        m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }
     /// <summary>
     /// プレイヤーがボタンを使って攻撃するためのメソッド
@@ -66,9 +55,9 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            m_enemy.EnemyDamage(m_damage.PlayerNormalAttack(m_player.m_playerAttackPow,m_enemy.m_enemyDefensivePower));
-            //m_damage.EnemyDamageText(m_hpText);
-
+            var damage = m_enemy.GetComponent<IDamagable>();
+            Debug.Log(damage.ReceiveDamage(m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower));
+            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow,m_enemy.m_enemyDefensivePower));
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
@@ -77,7 +66,8 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            m_enemy.EnemyDamage(m_damage.PlayerMagicArrowAttack(m_player.m_playerMagicPow,m_enemy.m_enemyDefensivePower));
+            var damage = m_enemy.GetComponent<IDamagable>();
+            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow, m_enemy.m_enemyDefensivePower));
             m_player.PlayerMPDown(3);
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
@@ -97,19 +87,20 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_enemyAgilitySlider.value == m_enemyAgilitySlider.maxValue)
         {
+            var damage = m_enemy.GetComponent<IDamagable>();
             //playerの関数の中にDmageCasterの関数
-            m_player.PlayerDamage(m_damage.EnemyNormalAttack(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower));
+            m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
             EndAttack(m_enemyAgilitySlider);
             //m_damage.EndAttack(m_enemyAgilitySlider);
         }
     }
     void PlayerHPSliderUpdate()
     {
-        m_playerHPSlider.value = PlayerStatus.PlayerCurrentHP;
+        m_playerHPSlider.value = m_player.PlayerCurrentHP;
     }
     void PlayerMPSliderUpdate()
     {
-        m_playerMPSlider.value = PlayerStatus.PlayerCurrentMP;
+        m_playerMPSlider.value = m_player.PlayerCurrentMP;
     }
     void EnemyHPSliderUpdate()
     {
@@ -138,5 +129,23 @@ public class CommandBattleManager : MonoBehaviour
     public void EndAttack(Slider agility)
     {
         agility.value = 0;
+    }
+    void EnemyUI()
+    {
+        //敵のスライダー
+        m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
+        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
+        m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
+        m_enemyAgilitySlider.value = 0;
+    }
+    void PlayerUI()
+    {
+        //プレイヤーのスライダー
+        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
+        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
+        m_playerMPSlider.value = m_player.PlayerCurrentMP;
+        m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
+        m_playerAgilitySlider.value = 0;
     }
 }

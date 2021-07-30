@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    [SerializeField] private Vector3[] m_position;
-    [SerializeField] private GameObject m_enemy;
-    public int r;
+    [SerializeField] Vector3[] m_position;
+    [SerializeField] GameObject m_enemy;
+    GameObject[] m_enemyList;
+    public int RandomNum { get; private set; }
     void Awake()
     {
         EnemyGenerate();
     }
-
-    void Update()
-    {
-
-    }
     void EnemyGenerate()
     {
-        r = Random.Range(1, 4);
-        for (int i = 0; i < r; i++)
+        RandomNum = Random.Range(1, 4);
+        m_enemyList = new GameObject[RandomNum];
+        for (int i = 0; i < RandomNum; i++)
         {
-            var a = Instantiate(m_enemy);
+            m_enemyList[i] = m_enemy;
+            var a = Instantiate(m_enemyList[i]);
             a.transform.position = m_position[i];
         }
     }

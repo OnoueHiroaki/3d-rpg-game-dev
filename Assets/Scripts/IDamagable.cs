@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageCaster : MonoBehaviour
+public interface IDamagable
 {
-
+    int ReceiveDamage(int attack, int defense);
 }

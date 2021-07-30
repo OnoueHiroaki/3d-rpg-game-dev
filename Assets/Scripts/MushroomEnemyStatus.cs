@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStatus : MonoBehaviour, IDamage
+public class MushroomEnemyStatus : MonoBehaviour, IDamagable
 {
     public int m_enemyMaxHP = 30;
     public int m_enemyCurrentHP = 20;
-    //敵のHP
-    public int m_enemyHP = 30;
     //敵のMP
     public int EnemyMP = 3;
     //敵の攻撃力
@@ -28,8 +26,8 @@ public class EnemyStatus : MonoBehaviour, IDamage
         m_enemyCurrentHP -= damage;
         OnEnemyHPChange?.Invoke();
     }
-    int IDamage.ReceiveDamage(int attack, int defense)
+    int IDamagable.ReceiveDamage(int attack, int defense)
     {
-       return m_enemyCurrentHP -= attack - defense / 2;
+       return attack - defense / 2;
     }
 }

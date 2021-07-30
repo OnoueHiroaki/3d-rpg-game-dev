@@ -107,9 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d603179b4ffeab243bbad7cb1edc87c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyMaxHP: 30
-  m_enemyCurrentHP: 30
-  m_enemyHP: 30
+  m_enemyMaxHP: 100
+  m_enemyCurrentHP: 100
   EnemyMP: 3
   m_enemyAttackPow: 8
   m_enemyMagicPow: 3
