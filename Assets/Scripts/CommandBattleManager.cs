@@ -21,25 +21,23 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
     [SerializeField] private MushroomEnemyStatus m_enemy;
-    [SerializeField] private DamageCaster m_damage;
     [SerializeField] private EnemyUIList m_enemyUI;
     PlayerStatus m_player;
     void Start()
     {
         m_player = PlayerStatus.Instance;
         SecondPanelInactive();
-        PlayerUI();
-        EnemyUI();
+        //PlayerUI();
+        //EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
         m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
     }
-
     void Update()
     {
-        m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
-        m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
-        EnemyAttack();
+        //m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
+        //m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
+        //EnemyAttack();
         m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
         m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }
@@ -79,7 +77,6 @@ public class CommandBattleManager : MonoBehaviour
             m_enemyUI.m_enemyAgilitySliderList[2].value == m_enemyUI.m_enemyAgilitySliderList[2].maxValue)
         {
             var damage = m_enemy.GetComponent<IDamagable>();
-            //playerの関数の中にDmageCasterの関数
             m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
             EndAttack(m_enemyUI.m_enemyAgilitySliderList[0]);
         }
@@ -111,9 +108,7 @@ public class CommandBattleManager : MonoBehaviour
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
     }
-    /// <summary>
-    /// 攻撃した後に素早さゲージを０にする
-    /// </summary>
+    /// <summary>攻撃した後に素早さゲージを０にする</summary>
     /// <param name="agility">攻撃するオブジェクトのAgilitySlider</param>
     public void EndAttack(Slider agility)
     {
