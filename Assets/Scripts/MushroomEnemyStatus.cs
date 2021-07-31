@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MushroomEnemyStatus : MonoBehaviour, IDamagable
 {
@@ -25,6 +26,10 @@ public class MushroomEnemyStatus : MonoBehaviour, IDamagable
     {
         m_enemyCurrentHP -= damage;
         OnEnemyHPChange?.Invoke();
+        if (m_enemyCurrentHP <= 0)
+        {
+            SceneManager.LoadScene("ExploreScene");
+        }
     }
     int IDamagable.ReceiveDamage(int attack, int defense)
     {

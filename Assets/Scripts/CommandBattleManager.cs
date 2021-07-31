@@ -12,56 +12,49 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] private Slider m_playerMPSlider;
     //プレイヤーの素早さのスライダー
     [SerializeField] private Slider m_playerAgilitySlider;
-    //敵のHPスライダー
-    [SerializeField] private Slider m_enemyHPSlider;
-    //敵の素早さのスライダー
-    [SerializeField] private Slider m_enemyAgilitySlider;
-
+    ////敵のHPスライダー
+    //[SerializeField] private Slider[] m_enemyHPSlider;
+    ////敵の素早さのスライダー
+    //[SerializeField] private Slider[] m_enemyAgilitySlider;
     [SerializeField] private Text m_hPText;
     [SerializeField] private Text m_mPText;
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
     [SerializeField] private MushroomEnemyStatus m_enemy;
-    PlayerStatus m_player;
     [SerializeField] private DamageCaster m_damage;
-
+    [SerializeField] private EnemyUIList m_enemyUI;
+    PlayerStatus m_player;
     void Start()
     {
-        //m_enemy.m_enemyCurrentHP = m_enemy.m_enemyMaxHP;
         m_player = PlayerStatus.Instance;
-        m_firstPanel.SetBool("FirstOpen", true);
-        m_secondPanel.SetBool("SecondOpen", false);
+        SecondPanelInactive();
         PlayerUI();
         EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
-        //m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
-        var damage = GetComponent<IDamagable>();
+        m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
     }
 
     void Update()
     {
-        m_enemyAgilitySlider.value += m_enemy.m_enemyAgility * Time.deltaTime;
+        m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
-        EnemyDeath();
         m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
         m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }
-    /// <summary>
-    /// プレイヤーがボタンを使って攻撃するためのメソッド
-    /// </summary>
+    /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
     public void PlayerAttack()
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
             var damage = m_enemy.GetComponent<IDamagable>();
-            Debug.Log(damage.ReceiveDamage(m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower));
-            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow,m_enemy.m_enemyDefensivePower));
+            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower));
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
+    /// <summary>プレイヤーの魔法攻撃</summary>
     public void MagicArrowAttack()
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
@@ -73,74 +66,68 @@ public class CommandBattleManager : MonoBehaviour
             EndAttack(m_playerAgilitySlider);
         }
     }
-    /// <summary>
-    /// プレイヤーがボタンを使って逃げるためのメソッド
-    /// </summary>
+    /// <summary>プレイヤーがボタンを使って逃げるためのメソッド</summary>
     public void PlayerEscape()
     {
         SceneManager.LoadScene("ExploreScene");
     }
-    /// <summary>
-    /// 敵の攻撃処理
-    /// </summary>
+    /// <summary>敵の攻撃処理</summary>
     private void EnemyAttack()
     {
-        if (m_enemyAgilitySlider.value == m_enemyAgilitySlider.maxValue)
+        if (m_enemyUI.m_enemyAgilitySliderList[0].value == m_enemyUI.m_enemyAgilitySliderList[0].maxValue ||
+            m_enemyUI.m_enemyAgilitySliderList[1].value == m_enemyUI.m_enemyAgilitySliderList[1].maxValue ||
+            m_enemyUI.m_enemyAgilitySliderList[2].value == m_enemyUI.m_enemyAgilitySliderList[2].maxValue)
         {
             var damage = m_enemy.GetComponent<IDamagable>();
             //playerの関数の中にDmageCasterの関数
             m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-            EndAttack(m_enemyAgilitySlider);
-            //m_damage.EndAttack(m_enemyAgilitySlider);
+            EndAttack(m_enemyUI.m_enemyAgilitySliderList[0]);
         }
     }
+    /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
     void PlayerHPSliderUpdate()
     {
         m_playerHPSlider.value = m_player.PlayerCurrentHP;
     }
+    /// <summary>プレイヤーのMPバーが現在のMPと同じ数値にする関数</summary>
     void PlayerMPSliderUpdate()
     {
         m_playerMPSlider.value = m_player.PlayerCurrentMP;
     }
+    /// <summary>エネミーのHPバーが現在のHPと同じ数値にする関数</summary>
     void EnemyHPSliderUpdate()
     {
-        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
+        m_enemyUI.m_enemyAgilitySliderList[0].value = m_enemy.m_enemyCurrentHP;
     }
-    /// <summary>
-    /// 敵の死亡判定
-    /// </summary>
-    void EnemyDeath()
-    {
-        if (m_enemyHPSlider.value <= 0)
-        {
-            //SceneManager.LoadScene("ExploreScene");
-        }
-    }
+    /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>
     public void FirstPanelInactive()
     {
         m_firstPanel.SetBool("FirstOpen", false);
         m_secondPanel.SetBool("SecondOpen", true);
     }
+    /// <summary>二番目のパネルを隠して最初のパネルを表示する</summary>
     public void SecondPanelInactive()
     {
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
     }
+    /// <summary>
+    /// 攻撃した後に素早さゲージを０にする
+    /// </summary>
+    /// <param name="agility">攻撃するオブジェクトのAgilitySlider</param>
     public void EndAttack(Slider agility)
     {
         agility.value = 0;
     }
     void EnemyUI()
     {
-        //敵のスライダー
-        m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
-        m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
-        m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
-        m_enemyAgilitySlider.value = 0;
+        m_enemyUI.m_enemyHPSliderList[0].maxValue = m_enemy.m_enemyMaxHP;
+        m_enemyUI.m_enemyHPSliderList[0].value = m_enemy.m_enemyCurrentHP;
+        m_enemyUI.m_enemyAgilitySliderList[0].maxValue = m_enemy.m_enemyMaxAgility;
+        m_enemyUI.m_enemyAgilitySliderList[0].value = 0;
     }
     void PlayerUI()
     {
-        //プレイヤーのスライダー
         m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
         m_playerHPSlider.value = m_player.PlayerCurrentHP;
         m_playerMPSlider.maxValue = m_player.m_playerMaxMp;

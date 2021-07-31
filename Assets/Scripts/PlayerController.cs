@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     Animator m_anim;
     Rigidbody m_rb;
-    
 
     void Start()
     {
