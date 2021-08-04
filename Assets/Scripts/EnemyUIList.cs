@@ -9,9 +9,9 @@ public class EnemyUIList : MonoBehaviour
     public Button[] m_enemySelectList { get; private set; }
     public Slider[] m_enemyHPSliderList { get; private set; }
     public Slider[] m_enemyAgilitySliderList { get; private set; }
-    public Button m_enemySelect;
-    public Slider m_enemyHPSlider;
-    public Slider m_enemyAgilitySlider;
+    //public Button m_enemySelect;
+    //public Slider m_enemyHPSlider;
+    //public Slider m_enemyAgilitySlider;
     private int m_enemyNum;
     [SerializeField] EnemyGenerator instance;
     [SerializeField] private Transform[] m_selectPosition;
@@ -21,18 +21,18 @@ public class EnemyUIList : MonoBehaviour
     {
         for (int i = 0; i < instance.RandomNum; i++)
         {
-            var select = Instantiate(m_enemySelect);
-            select.transform.SetParent(m_canvasObject.transform);
+            //var select = Instantiate(m_enemySelect);
+            //select.transform.SetParent(m_canvasObject.transform);
             //m_enemySelectList[i] = select;
-            var hp = Instantiate(m_enemyHPSlider);
-            hp.transform.SetParent(m_canvasObject.transform);
+            //var hp = Instantiate(m_enemyHPSlider);
+            //hp.transform.SetParent(m_canvasObject.transform);
             //m_enemyHPSliderList[i] = hp;
-            var agility = Instantiate(m_enemyAgilitySlider);
-            agility.transform.SetParent(m_canvasObject.transform);
-            //m_enemyAgilitySliderList[i] = agility;
-            select.transform.position = m_selectPosition[i].position;
-            hp.transform.position = m_hpSliderPosition[i].position;
-            agility.transform.position = m_agilitySliderPosition[i].position;
+            //var agility = Instantiate(m_enemyAgilitySlider);
+            //agility.transform.SetParent(m_canvasObject.transform);
+            ////m_enemyAgilitySliderList[i] = agility;
+            ////select.transform.position = m_selectPosition[i].position;
+            ////hp.transform.position = m_hpSliderPosition[i].position;
+            //agility.transform.position = m_agilitySliderPosition[i].position;
         }
     }
     //public int PlayerAttackIdentification()
