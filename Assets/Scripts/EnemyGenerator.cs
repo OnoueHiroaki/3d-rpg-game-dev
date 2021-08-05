@@ -6,7 +6,7 @@ public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField] Vector3[] m_position;
     public GameObject m_enemyPrefab;
-    GameObject[] m_enemyList;
+    public GameObject[] m_enemyList { get; private set; }
     public int RandomNum { get; private set; }
     void Awake()
     {

@@ -27,17 +27,17 @@ public class CommandBattleManager : MonoBehaviour
     {
         m_player = PlayerStatus.Instance;
         SecondPanelInactive();
-        //PlayerUI();
-        //EnemyUI();
+        PlayerUI();
+        EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
         m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
     }
     void Update()
     {
-        //m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
-        //m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
-        //EnemyAttack();
+        m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
+        m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
+        EnemyAttack();
         m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
         m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }

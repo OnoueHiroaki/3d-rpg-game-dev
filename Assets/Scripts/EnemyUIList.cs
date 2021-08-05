@@ -35,20 +35,20 @@ public class EnemyUIList : MonoBehaviour
             //agility.transform.position = m_agilitySliderPosition[i].position;
         }
     }
-    //public int PlayerAttackIdentification()
+    public int PlayerAttackIdentification()
+    {
+        return m_enemyNum;
+    }
+    //public void Enemy1()
     //{
-    //    return m_enemyNum;
+    //    m_enemyNum = 0;
     //}
-    public void Enemy1()
-    {
-        m_enemyNum = 0;
-    }
-    public void Enemy2()
-    {
-        m_enemyNum = 1;
-    }
-    public void Enemy3()
-    {
-        m_enemyNum = 2;
-    }
+    //public void Enemy2()
+    //{
+    //    m_enemyNum = 1;
+    //}
+    //public void Enemy3()
+    //{
+    //    m_enemyNum = 2;
+    //}
 }
