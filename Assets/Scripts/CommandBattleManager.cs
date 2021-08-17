@@ -35,7 +35,7 @@ public class CommandBattleManager : MonoBehaviour
     }
     void Update()
     {
-        m_enemyUI.m_enemyAgilitySliderList[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
+        m_enemyUI.m_enemyAgilitySlider[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         EnemyAttack();
         m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
@@ -72,13 +72,13 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>敵の攻撃処理</summary>
     private void EnemyAttack()
     {
-        if (m_enemyUI.m_enemyAgilitySliderList[0].value == m_enemyUI.m_enemyAgilitySliderList[0].maxValue ||
-            m_enemyUI.m_enemyAgilitySliderList[1].value == m_enemyUI.m_enemyAgilitySliderList[1].maxValue ||
-            m_enemyUI.m_enemyAgilitySliderList[2].value == m_enemyUI.m_enemyAgilitySliderList[2].maxValue)
+        if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
+            m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
+            m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue)
         {
             var damage = m_enemy.GetComponent<IDamagable>();
             m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-            EndAttack(m_enemyUI.m_enemyAgilitySliderList[0]);
+            EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
         }
     }
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
@@ -94,7 +94,7 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>エネミーのHPバーが現在のHPと同じ数値にする関数</summary>
     void EnemyHPSliderUpdate()
     {
-        m_enemyUI.m_enemyAgilitySliderList[0].value = m_enemy.m_enemyCurrentHP;
+        m_enemyUI.m_enemyAgilitySlider[0].value = m_enemy.m_enemyCurrentHP;
     }
     /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>
     public void FirstPanelInactive()
@@ -116,10 +116,10 @@ public class CommandBattleManager : MonoBehaviour
     }
     void EnemyUI()
     {
-        m_enemyUI.m_enemyHPSliderList[0].maxValue = m_enemy.m_enemyMaxHP;
-        m_enemyUI.m_enemyHPSliderList[0].value = m_enemy.m_enemyCurrentHP;
-        m_enemyUI.m_enemyAgilitySliderList[0].maxValue = m_enemy.m_enemyMaxAgility;
-        m_enemyUI.m_enemyAgilitySliderList[0].value = 0;
+        //m_enemyUI.m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
+        //m_enemyUI.m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
+        //m_enemyUI.m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
+        //m_enemyUI.m_enemyAgilitySlider.value = 0;
     }
     void PlayerUI()
     {

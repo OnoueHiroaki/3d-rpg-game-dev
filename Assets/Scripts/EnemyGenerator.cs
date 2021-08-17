@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField] Vector3[] m_position;
+    [SerializeField] GameObject m_cavas;
     public GameObject m_enemyPrefab;
     public GameObject[] m_enemyList { get; private set; }
     public int RandomNum { get; private set; }
@@ -21,6 +22,7 @@ public class EnemyGenerator : MonoBehaviour
             m_enemyList[i] = m_enemyPrefab;
             var a = Instantiate(m_enemyList[i]) ;
             a.transform.position = m_position[i];
+            a.transform.SetParent(m_cavas.transform);
         }
     }
 }
