@@ -31,13 +31,13 @@ public class CommandBattleManager : MonoBehaviour
         EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
-        m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
+        //m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
     }
     void Update()
     {
-        m_enemyUI.m_enemyAgilitySlider[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
+        //m_enemyUI.m_enemyAgilitySlider[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
-        EnemyAttack();
+        //EnemyAttack();
         m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
         m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
     }
@@ -48,7 +48,7 @@ public class CommandBattleManager : MonoBehaviour
         {
             var damage = m_enemy.GetComponent<IDamagable>();
             m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower));
-            EnemyHPSliderUpdate();
+            //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -60,7 +60,7 @@ public class CommandBattleManager : MonoBehaviour
             var damage = m_enemy.GetComponent<IDamagable>();
             m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow, m_enemy.m_enemyDefensivePower));
             m_player.PlayerMPDown(3);
-            EnemyHPSliderUpdate();
+            //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -70,17 +70,17 @@ public class CommandBattleManager : MonoBehaviour
         SceneManager.LoadScene("ExploreScene");
     }
     /// <summary>敵の攻撃処理</summary>
-    private void EnemyAttack()
-    {
-        if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
-            m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
-            m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue)
-        {
-            var damage = m_enemy.GetComponent<IDamagable>();
-            m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-            EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
-        }
-    }
+    //private void EnemyAttack()
+    //{
+    //    if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
+    //        m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
+    //        m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue)
+    //    {
+    //        var damage = m_enemy.GetComponent<IDamagable>();
+    //        m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
+    //        EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
+    //    }
+    //}
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
     void PlayerHPSliderUpdate()
     {
@@ -92,10 +92,10 @@ public class CommandBattleManager : MonoBehaviour
         m_playerMPSlider.value = m_player.PlayerCurrentMP;
     }
     /// <summary>エネミーのHPバーが現在のHPと同じ数値にする関数</summary>
-    void EnemyHPSliderUpdate()
-    {
-        m_enemyUI.m_enemyAgilitySlider[0].value = m_enemy.m_enemyCurrentHP;
-    }
+    //void EnemyHPSliderUpdate()
+    //{
+    //    m_enemyUI.m_enemyAgilitySlider[0].value = m_enemy.m_enemyCurrentHP;
+    //}
     /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>
     public void FirstPanelInactive()
     {
