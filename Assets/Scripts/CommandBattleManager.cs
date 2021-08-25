@@ -20,7 +20,9 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] private Text m_mPText;
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
-    [SerializeField] private MushroomEnemyStatus m_enemy;
+    //[SerializeField] private MushroomEnemyStatus m_enemy;
+    EnemyGenerator m_enemy;
+    EnemySelect m_enemySelect;
     [SerializeField] private EnemyUIList m_enemyUI;
     PlayerStatus m_player;
     void Start()
@@ -38,16 +40,17 @@ public class CommandBattleManager : MonoBehaviour
         //m_enemyUI.m_enemyAgilitySlider[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         //EnemyAttack();
-        m_hPText.text = "HP            " + m_player.PlayerCurrentHP;
-        m_mPText.text = "MP            " + m_player.PlayerCurrentMP;
+        m_hPText.text = "HP                   " + m_player.PlayerCurrentHP;
+        m_mPText.text = "MP                   " + m_player.PlayerCurrentMP;
     }
     /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
     public void PlayerAttack()
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            var damage = m_enemy.GetComponent<IDamagable>();
-            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, m_enemy.m_enemyDefensivePower));
+            var enemy = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<MushroomEnemyStatus>();
+            var damage = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<IDamagable>();
+            enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, enemy.m_enemyDefensivePower));
             //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
@@ -57,8 +60,9 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            var damage = m_enemy.GetComponent<IDamagable>();
-            m_enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow, m_enemy.m_enemyDefensivePower));
+            var enemy = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<MushroomEnemyStatus>();
+            var damage = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<IDamagable>();
+            enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow, enemy.m_enemyDefensivePower));
             m_player.PlayerMPDown(3);
             //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
