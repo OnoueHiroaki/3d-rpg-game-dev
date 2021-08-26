@@ -21,8 +21,8 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] private Animator m_firstPanel;
     [SerializeField] private Animator m_secondPanel;
     //[SerializeField] private MushroomEnemyStatus m_enemy;
-    EnemyGenerator m_enemy;
-    EnemySelect m_enemySelect;
+    [SerializeField] EnemyGenerator m_enemy;
+    [SerializeField] EnemySelect m_enemySelect;
     [SerializeField] private EnemyUIList m_enemyUI;
     PlayerStatus m_player;
     void Start()
@@ -48,8 +48,8 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            var enemy = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<MushroomEnemyStatus>();
-            var damage = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<IDamagable>();
+            var enemy = m_enemy.m_enemyList[m_enemySelect.SelectedNum].GetComponent<MushroomEnemyStatus>();
+            var damage = m_enemy.m_enemyList[m_enemySelect.SelectedNum].GetComponent<IDamagable>();
             enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, enemy.m_enemyDefensivePower));
             //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);

@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -2788,7 +2788,9 @@ MonoBehaviour:
   m_mPText: {fileID: 195250677}
   m_firstPanel: {fileID: 558110705}
   m_secondPanel: {fileID: 325843433}
-  m_enemy: {fileID: 741505918205692940, guid: be6cd979204792543bac89474a9aeeee, type: 3}
+  m_enemy: {fileID: 1462851452}
+  m_enemySelect: {fileID: 7367557590907020732, guid: d60035b19d7cca1439cb6389d97358e6,
+    type: 3}
   m_enemyUI: {fileID: 1894000661}
 --- !u!4 &1782319140
 Transform:
@@ -3200,14 +3202,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_canvasObject: {fileID: 1620275786}
-  m_enemyUI: {fileID: 166866306921663458, guid: d60035b19d7cca1439cb6389d97358e6,
+  m_enemyUI: {fileID: 7367557590907020734, guid: d60035b19d7cca1439cb6389d97358e6,
     type: 3}
   instance: {fileID: 1462851452}
   m_uIPosition:
   - {fileID: 867756229}
   - {fileID: 502539890}
   - {fileID: 361064288}
-  I: 0
+  m_enemySelectNum: 0
 --- !u!4 &1894000662
 Transform:
   m_ObjectHideFlags: 0

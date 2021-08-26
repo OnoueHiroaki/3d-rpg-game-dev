@@ -13,7 +13,7 @@ public class EnemySelect : MonoBehaviour
     }
     public void OnSelect()
     {
-        SelectedNum = m_enemyUIScript.EnemyNum[Num];
-        Debug.Log(Num);
+        SelectedNum = Num;
+        Debug.Log(SelectedNum);
     }
 }
