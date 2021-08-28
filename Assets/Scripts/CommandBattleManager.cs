@@ -74,17 +74,18 @@ public class CommandBattleManager : MonoBehaviour
         SceneManager.LoadScene("ExploreScene");
     }
     /// <summary>敵の攻撃処理</summary>
-    //private void EnemyAttack()
-    //{
-    //    if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
-    //        m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
-    //        m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue)
-    //    {
-    //        var damage = m_enemy.GetComponent<IDamagable>();
-    //        m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-    //        EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
-    //    }
-    //}
+    private void EnemyAttack()
+    {
+        var slider = m_enemyUI.EnemyUI[m_enemySelect.SelectedNum].GetComponent<Slider>();
+        //if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
+        //    m_enemyUI.m_enemyAgilitySlider[1].value == m_enemyUI.m_enemyAgilitySlider[1].maxValue ||
+        //    m_enemyUI.m_enemyAgilitySlider[2].value == m_enemyUI.m_enemyAgilitySlider[2].maxValue)
+        {
+            //var damage = m_enemy.GetComponent<IDamagable>();
+            //m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
+            //EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
+        }
+    }
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
     void PlayerHPSliderUpdate()
     {
