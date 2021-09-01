@@ -558,7 +558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 298.99994, y: -4.000061}
+  m_AnchoredPosition: {x: 299, y: -4}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &195250676
@@ -804,7 +804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 778.4, y: 393.6}
+  m_AnchoredPosition: {x: 778, y: 393}
   m_SizeDelta: {x: 215, y: 245}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &377548599
@@ -1125,7 +1125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 440, y: 391}
+  m_AnchoredPosition: {x: 440, y: 393}
   m_SizeDelta: {x: 215, y: 245}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &511408106
@@ -1689,7 +1689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 762.3499, y: 28.000004}
+  m_AnchoredPosition: {x: 762, y: 28.000004}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &862726660
@@ -1811,7 +1811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 763.35004, y: 143}
+  m_AnchoredPosition: {x: 763, y: 143}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877909428
@@ -2492,6 +2492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_position:
+  - {fileID: 1388135147}
   - {fileID: 602386036}
   - {fileID: 1010277955}
   - {fileID: 1388135147}
@@ -2551,7 +2552,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 471, y: 131}
-  m_SizeDelta: {x: 926.7, y: 188}
+  m_SizeDelta: {x: 926, y: 188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1465800801
 MonoBehaviour:
@@ -2699,7 +2700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 762.3499, y: 91}
+  m_AnchoredPosition: {x: 762, y: 91}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1676182207
@@ -2788,10 +2789,8 @@ MonoBehaviour:
   m_mPText: {fileID: 195250677}
   m_firstPanel: {fileID: 558110705}
   m_secondPanel: {fileID: 325843433}
-  m_enemy: {fileID: 1462851452}
-  m_enemySelect: {fileID: 7367557590907020732, guid: d60035b19d7cca1439cb6389d97358e6,
-    type: 3}
-  m_enemyUI: {fileID: 1894000661}
+  m_enemyGenerator: {fileID: 1462851452}
+  m_enemyUIGenerator: {fileID: 1894000661}
 --- !u!4 &1782319140
 Transform:
   m_ObjectHideFlags: 0
@@ -3045,7 +3044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 762.3499, y: 143}
+  m_AnchoredPosition: {x: 762, y: 143}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1829679261
@@ -3183,7 +3182,7 @@ GameObject:
   - component: {fileID: 1894000662}
   - component: {fileID: 1894000661}
   m_Layer: 0
-  m_Name: EnemyUIManager
+  m_Name: EnemyUIGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3198,18 +3197,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1894000660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fc609ab8e73da4eb1b5e68fa025827, type: 3}
+  m_Script: {fileID: 11500000, guid: 145a2924ed87cdd41ae474ecd228c2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_canvasObject: {fileID: 1620275786}
-  m_enemyUI: {fileID: 7367557590907020734, guid: d60035b19d7cca1439cb6389d97358e6,
+  m_enemyUIPrefab: {fileID: 7367557590907020734, guid: d60035b19d7cca1439cb6389d97358e6,
     type: 3}
   instance: {fileID: 1462851452}
   m_uIPosition:
+  - {fileID: 0}
   - {fileID: 867756229}
   - {fileID: 502539890}
   - {fileID: 361064288}
-  m_enemySelectNum: 0
 --- !u!4 &1894000662
 Transform:
   m_ObjectHideFlags: 0

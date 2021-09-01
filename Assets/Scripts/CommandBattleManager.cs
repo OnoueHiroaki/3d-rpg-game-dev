@@ -7,51 +7,60 @@ using UnityEngine.SceneManagement;
 public class CommandBattleManager : MonoBehaviour
 {
     //プレイヤーのHPスライダー
-    [SerializeField] private Slider m_playerHPSlider;
+    [SerializeField] Slider m_playerHPSlider;
     //プレイヤーのMPスライダー
-    [SerializeField] private Slider m_playerMPSlider;
+    [SerializeField] Slider m_playerMPSlider;
     //プレイヤーの素早さのスライダー
-    [SerializeField] private Slider m_playerAgilitySlider;
-    ////敵のHPスライダー
-    //[SerializeField] private Slider[] m_enemyHPSlider;
-    ////敵の素早さのスライダー
-    //[SerializeField] private Slider[] m_enemyAgilitySlider;
-    [SerializeField] private Text m_hPText;
-    [SerializeField] private Text m_mPText;
-    [SerializeField] private Animator m_firstPanel;
-    [SerializeField] private Animator m_secondPanel;
-    //[SerializeField] private MushroomEnemyStatus m_enemy;
-    [SerializeField] EnemyGenerator m_enemy;
-    [SerializeField] EnemySelect m_enemySelect;
-    [SerializeField] private EnemyUIList m_enemyUI;
+    [SerializeField] Slider m_playerAgilitySlider;
+    //敵のHPスライダー
+    Slider[] m_enemyHPSlider = default;
+    //敵のAgilityスライダー
+    Slider[] m_enemyAgilitySlider = default;
+    [SerializeField] Text m_hPText;
+    [SerializeField] Text m_mPText;
+    [SerializeField] Animator m_firstPanel;
+    [SerializeField] Animator m_secondPanel;
+    [SerializeField] EnemyGenerator m_enemyGenerator;
+    [SerializeField] EnemyUIGenerator m_enemyUIGenerator;
+    EnemyUI[] m_enemyUI;
+    MushroomEnemyStatus m_mushroomEnemy;
     PlayerStatus m_player;
     void Start()
     {
         m_player = PlayerStatus.Instance;
+        for (int i = 0; i < m_enemyGenerator.RandomNum; i++)
+        {
+            m_enemyUI[i] = m_enemyUIGenerator.EnemyUIList[i].GetComponent<EnemyUI>();
+        }
+        m_mushroomEnemy = m_enemyGenerator.EnemyList[1]
+            .GetComponent<MushroomEnemyStatus>();
+        GetEnemyHPSlider();
+        //GetEnemyAgilitySlider();
         SecondPanelInactive();
         PlayerUI();
         EnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
-        //m_enemy.OnEnemyHPChange += EnemyHPSliderUpdate;
+        //m_mushroomEnemy.OnEnemyHPChange += EnemyHPSliderUpdate;
     }
     void Update()
     {
-        //m_enemyUI.m_enemyAgilitySlider[0].value += m_enemy.m_enemyAgility * Time.deltaTime;
+        //m_enemyUI.EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
         m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
         //EnemyAttack();
-        m_hPText.text = "HP                   " + m_player.PlayerCurrentHP;
-        m_mPText.text = "MP                   " + m_player.PlayerCurrentMP;
+        m_hPText.text = "HP                          " + m_player.PlayerCurrentHP;
+        m_mPText.text = "MP                          " + m_player.PlayerCurrentMP;
     }
     /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
     public void PlayerAttack()
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            var enemy = m_enemy.m_enemyList[m_enemySelect.SelectedNum].GetComponent<MushroomEnemyStatus>();
-            var damage = m_enemy.m_enemyList[m_enemySelect.SelectedNum].GetComponent<IDamagable>();
-            enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow, enemy.m_enemyDefensivePower));
-            //EnemyHPSliderUpdate();
+            GetMushroomEnemy();
+            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
+            m_mushroomEnemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow,
+                            m_mushroomEnemy.m_enemyDefensivePower));
+            EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -60,11 +69,12 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            var enemy = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<MushroomEnemyStatus>();
-            var damage = m_enemy.m_enemyList[m_enemySelect.Num].GetComponent<IDamagable>();
-            enemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow, enemy.m_enemyDefensivePower));
+            GetMushroomEnemy();
+            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
+            m_mushroomEnemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow,
+                            m_mushroomEnemy.m_enemyDefensivePower));
             m_player.PlayerMPDown(3);
-            //EnemyHPSliderUpdate();
+            EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -76,16 +86,40 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>敵の攻撃処理</summary>
     private void EnemyAttack()
     {
-        var slider = m_enemyUI.EnemyUI[m_enemySelect.SelectedNum].GetComponent<Slider>();
-        //if (m_enemyUI.m_enemyAgilitySlider[0].value == m_enemyUI.m_enemyAgilitySlider[0].maxValue ||
-        //    m_enemyUI.m_enemyAgilitySlider[1].value == m_enemyUI.m_enemyAgilitySlider[1].maxValue ||
-        //    m_enemyUI.m_enemyAgilitySlider[2].value == m_enemyUI.m_enemyAgilitySlider[2].maxValue)
+        if (m_enemyAgilitySlider.value == m_enemyAgilitySlider.maxValue)
         {
-            //var damage = m_enemy.GetComponent<IDamagable>();
-            //m_player.PlayerDamage(damage.ReceiveDamage(m_enemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-            //EndAttack(m_enemyUI.m_enemyAgilitySlider[0]);
+            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
+            m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
+            EndAttack(m_enemyAgilitySlider);
         }
     }
+
+    /// <summary>攻撃した後に素早さゲージを０にする</summary>
+    /// <param name="agility">攻撃するオブジェクトのAgilitySlider</param>
+    public void EndAttack(Slider agility)
+    {
+        agility.value = 0;
+    }
+
+    void GetEnemyHPSlider()
+    {
+        for (int i = 0; i < m_enemyGenerator.RandomNum; i++)
+        {
+            m_enemyHPSlider[i] = m_enemyUI[i].EnemyHPSlider;
+        }
+    }
+
+    void GetEnemyAgilitySlider()
+    {
+        m_enemyAgilitySlider = m_enemyUI.EnemyAgilitySlider;
+    }
+
+    void GetMushroomEnemy()
+    {
+        m_mushroomEnemy = m_enemyGenerator.EnemyList[EnemyGenerator.Instance.SelectNum]
+            .GetComponent<MushroomEnemyStatus>();
+    }
+
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
     void PlayerHPSliderUpdate()
     {
@@ -97,10 +131,27 @@ public class CommandBattleManager : MonoBehaviour
         m_playerMPSlider.value = m_player.PlayerCurrentMP;
     }
     /// <summary>エネミーのHPバーが現在のHPと同じ数値にする関数</summary>
-    //void EnemyHPSliderUpdate()
-    //{
-    //    m_enemyUI.m_enemyAgilitySlider[0].value = m_enemy.m_enemyCurrentHP;
-    //}
+    void EnemyHPSliderUpdate()
+    {
+        m_enemyHPSlider.value = m_mushroomEnemy.m_enemyCurrentHP;
+    }
+    void EnemyUI()
+    {
+        //m_enemyUI.m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
+        //m_enemyUI.m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
+        //m_enemyUI.m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
+        //m_enemyUI.m_enemyAgilitySlider.value = 0;
+    }
+
+    void PlayerUI()
+    {
+        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
+        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
+        m_playerMPSlider.value = m_player.PlayerCurrentMP;
+        m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
+        m_playerAgilitySlider.value = 0;
+    }
     /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>
     public void FirstPanelInactive()
     {
@@ -112,27 +163,5 @@ public class CommandBattleManager : MonoBehaviour
     {
         m_firstPanel.SetBool("FirstOpen", true);
         m_secondPanel.SetBool("SecondOpen", false);
-    }
-    /// <summary>攻撃した後に素早さゲージを０にする</summary>
-    /// <param name="agility">攻撃するオブジェクトのAgilitySlider</param>
-    public void EndAttack(Slider agility)
-    {
-        agility.value = 0;
-    }
-    void EnemyUI()
-    {
-        //m_enemyUI.m_enemyHPSlider.maxValue = m_enemy.m_enemyMaxHP;
-        //m_enemyUI.m_enemyHPSlider.value = m_enemy.m_enemyCurrentHP;
-        //m_enemyUI.m_enemyAgilitySlider.maxValue = m_enemy.m_enemyMaxAgility;
-        //m_enemyUI.m_enemyAgilitySlider.value = 0;
-    }
-    void PlayerUI()
-    {
-        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
-        m_playerHPSlider.value = m_player.PlayerCurrentHP;
-        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
-        m_playerMPSlider.value = m_player.PlayerCurrentMP;
-        m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
-        m_playerAgilitySlider.value = 0;
     }
 }

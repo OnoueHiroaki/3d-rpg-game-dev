@@ -60,16 +60,16 @@
     <Compile Include="Assets\Scripts\DamageCaster.cs" />
     <Compile Include="Assets\Scripts\EnemyGenerator.cs" />
     <Compile Include="Assets\Scripts\EnemyMove.cs" />
-    <Compile Include="Assets\Scripts\EnemySelect.cs" />
     <Compile Include="Assets\Scripts\EnemyTarget.cs" />
-    <Compile Include="Assets\Scripts\EnemyUIList.cs" />
+    <Compile Include="Assets\Scripts\EnemyUI.cs" />
+    <Compile Include="Assets\Scripts\EnemyUIGenerator.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GetEnemyNum.cs" />
     <Compile Include="Assets\Scripts\IDamagable.cs" />
     <Compile Include="Assets\Scripts\MushroomEnemyStatus.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\PlayerUIList.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Kevin Iglesias\3DCharacterDummy\Readme.txt" />
