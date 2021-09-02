@@ -9,15 +9,13 @@ public class EnemyUIGenerator : MonoBehaviour
     [SerializeField] GameObject m_enemyUIPrefab;
     //生成したUIを入れるための配列
     public GameObject[] EnemyUIList { get; set; }
-    //生成する数を持ってくる
-    [SerializeField] EnemyGenerator instance;
     [SerializeField] Transform[] m_uIPosition;
     public GameObject EnemyUI { get; set; }
     ///<summary>UIを生成</summary>
     private void Awake()
     {
-        EnemyUIList = new GameObject[instance.RandomNum + 1];
-        for (int i = 1; i <= instance.RandomNum; i++)
+        EnemyUIList = new GameObject[EnemyGenerator.Instance.RandomNum + 1];
+        for (int i = 1; i <= EnemyGenerator.Instance.RandomNum; i++)
         {
             EnemyUI = Instantiate(m_enemyUIPrefab);
             EnemyUIList[i] = EnemyUI;
