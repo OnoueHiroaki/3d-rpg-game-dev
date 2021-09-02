@@ -2492,7 +2492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_position:
-  - {fileID: 1388135147}
+  - {fileID: 0}
   - {fileID: 602386036}
   - {fileID: 1010277955}
   - {fileID: 1388135147}
@@ -3203,7 +3203,6 @@ MonoBehaviour:
   m_canvasObject: {fileID: 1620275786}
   m_enemyUIPrefab: {fileID: 7367557590907020734, guid: d60035b19d7cca1439cb6389d97358e6,
     type: 3}
-  instance: {fileID: 1462851452}
   m_uIPosition:
   - {fileID: 0}
   - {fileID: 867756229}

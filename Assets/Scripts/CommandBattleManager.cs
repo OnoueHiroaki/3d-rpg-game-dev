@@ -23,20 +23,21 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] EnemyGenerator m_enemyGenerator;
     [SerializeField] EnemyUIGenerator m_enemyUIGenerator;
     EnemyUI[] m_enemyUI;
-    MushroomEnemyStatus m_mushroomEnemy;
+    MushroomEnemyStatus[] m_mushroomEnemy;
     PlayerStatus m_player;
     void Start()
     {
         m_enemyUI = new EnemyUI[EnemyGenerator.Instance.RandomNum + 1];
         m_enemyHPSlider = new Slider[EnemyGenerator.Instance.RandomNum + 1];
         m_enemyAgilitySlider = new Slider[EnemyGenerator.Instance.RandomNum + 1];
+        m_mushroomEnemy = new MushroomEnemyStatus[EnemyGenerator.Instance.RandomNum + 1];
         m_player = PlayerStatus.Instance;
         for (int i = 1; i <= EnemyGenerator.Instance.RandomNum; i++)
         {
             m_enemyUI[i] = m_enemyUIGenerator.EnemyUIList[i].GetComponent<EnemyUI>();
-        }
-        m_mushroomEnemy = m_enemyGenerator.EnemyList[1]
+            m_mushroomEnemy[i] = m_enemyGenerator.EnemyList[i]
             .GetComponent<MushroomEnemyStatus>();
+        }
         GetEnemyHPSlider();
         GetEnemyAgilitySlider();
         SecondPanelInactive();
@@ -44,7 +45,17 @@ public class CommandBattleManager : MonoBehaviour
         StartEnemyUI();
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
-        m_mushroomEnemy.OnEnemyHPChange += EnemyHPSliderUpdate;
+        m_mushroomEnemy[1].OnEnemyHPChange += EnemyHPSliderUpdate;
+        if (2 == EnemyGenerator.Instance.RandomNum)
+        {
+            m_mushroomEnemy[2].OnEnemyHPChange += EnemyHPSliderUpdate;
+        }
+        else if (3 == EnemyGenerator.Instance.RandomNum)
+        {
+            m_mushroomEnemy[2].OnEnemyHPChange += EnemyHPSliderUpdate;
+            m_mushroomEnemy[3].OnEnemyHPChange += EnemyHPSliderUpdate;
+        }
+
     }
     void Update()
     {
@@ -57,20 +68,15 @@ public class CommandBattleManager : MonoBehaviour
 
     void GetEnemyAgilityUpdate()
     {
-        if (1 == EnemyGenerator.Instance.RandomNum)
+        m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_enemyAgility);
+        if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
-        }
-        else if (2 == EnemyGenerator.Instance.RandomNum)
-        {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
-            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
+            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].m_enemyAgility);
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
-            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
-            m_enemyUI[3].EnemyAgilityUpdate(m_mushroomEnemy.m_enemyAgility);
+            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].m_enemyAgility);
+            m_enemyUI[3].EnemyAgilityUpdate(m_mushroomEnemy[3].m_enemyAgility);
         }
     }
     /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
@@ -78,10 +84,7 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            GetMushroomEnemy();
-            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
-            m_mushroomEnemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerAttackPow,
-                            m_mushroomEnemy.m_enemyDefensivePower));
+            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum);
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
@@ -91,14 +94,19 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            GetMushroomEnemy();
-            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
-            m_mushroomEnemy.EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow,
-                            m_mushroomEnemy.m_enemyDefensivePower));
+            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum);
             m_player.PlayerMPDown(3);
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
+    }
+    void PlayerAttackDamage(int num)
+    {
+        GetMushroomEnemy(num);
+        var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
+        m_mushroomEnemy[num].
+                        EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow,
+                        m_mushroomEnemy[num].m_enemyDefensivePower));
     }
     /// <summary>プレイヤーがボタンを使って逃げるためのメソッド</summary>
     public void PlayerEscape()
@@ -110,28 +118,28 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_enemyAgilitySlider[1].value == m_enemyAgilitySlider[1].maxValue)
         {
-            var damage = m_mushroomEnemy.GetComponent<IDamagable>();
-            m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-            EndAttack(m_enemyAgilitySlider[1]);
+            EnemyAttackDamage(1);
         }
         if (2 == EnemyGenerator.Instance.RandomNum)
         {
             if (m_enemyAgilitySlider[2].value == m_enemyAgilitySlider[2].maxValue)
             {
-                var damage = m_mushroomEnemy.GetComponent<IDamagable>();
-                m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-                EndAttack(m_enemyAgilitySlider[2]);
+                EnemyAttackDamage(2);
             }
         }
         if (3 == EnemyGenerator.Instance.RandomNum)
         {
             if (m_enemyAgilitySlider[3].value == m_enemyAgilitySlider[3].maxValue)
             {
-                var damage = m_mushroomEnemy.GetComponent<IDamagable>();
-                m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy.m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
-                EndAttack(m_enemyAgilitySlider[3]);
+                EnemyAttackDamage(3);
             }
         }
+    }
+    void EnemyAttackDamage(int num)
+    {
+        var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
+        m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy[num].m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
+        EndAttack(m_enemyAgilitySlider[num]);
     }
 
     /// <summary>攻撃した後に素早さゲージを０にする</summary>
@@ -152,7 +160,8 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>エネミーのHPバーが現在のHPと同じ数値にする関数</summary>
     void EnemyHPSliderUpdate()
     {
-        m_enemyHPSlider[EnemyGenerator.Instance.SelectNum].value = m_mushroomEnemy.m_enemyCurrentHP;
+        m_enemyHPSlider[EnemyGenerator.Instance.SelectNum].value =
+            m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_enemyCurrentHP;
     }
     void GetEnemyAgilitySlider()
     {
@@ -162,9 +171,9 @@ public class CommandBattleManager : MonoBehaviour
         }
     }
 
-    void GetMushroomEnemy()
+    void GetMushroomEnemy(int selectNum)
     {
-        m_mushroomEnemy = m_enemyGenerator.EnemyList[EnemyGenerator.Instance.SelectNum]
+        m_mushroomEnemy[selectNum] = m_enemyGenerator.EnemyList[selectNum]
             .GetComponent<MushroomEnemyStatus>();
     }
 
@@ -199,9 +208,9 @@ public class CommandBattleManager : MonoBehaviour
     }
     void EnemyUI(int index)
     {
-        m_enemyHPSlider[index].maxValue = m_mushroomEnemy.m_enemyMaxHP;
-        m_enemyHPSlider[index].value = m_mushroomEnemy.m_enemyCurrentHP;
-        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy.m_enemyMaxAgility;
+        m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].m_enemyMaxHP;
+        m_enemyHPSlider[index].value = m_mushroomEnemy[index].m_enemyCurrentHP;
+        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].m_enemyMaxAgility;
         m_enemyAgilitySlider[index].value = 0;
     }
 
