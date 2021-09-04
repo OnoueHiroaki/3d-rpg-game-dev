@@ -25,8 +25,8 @@ public class EnemyGenerator : MonoBehaviour
     void EnemyGenerate()
     {
         RandomNum = UnityEngine.Random.Range(1, 4);
-        EnemyList = new GameObject[RandomNum + 1];
-        for (int i = 1; i <= RandomNum; i++)
+        EnemyList = new GameObject[RandomNum];
+        for (int i = 0; i < RandomNum; i++)
         {
             EnemyList[i] = Instantiate(m_enemyPrefab);
             EnemyList[i].transform.position = m_position[i].position;            

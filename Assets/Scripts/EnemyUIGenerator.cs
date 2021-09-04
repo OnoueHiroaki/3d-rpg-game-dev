@@ -14,8 +14,8 @@ public class EnemyUIGenerator : MonoBehaviour
     ///<summary>UIを生成</summary>
     private void Awake()
     {
-        EnemyUIList = new GameObject[EnemyGenerator.Instance.RandomNum + 1];
-        for (int i = 1; i <= EnemyGenerator.Instance.RandomNum; i++)
+        EnemyUIList = new GameObject[EnemyGenerator.Instance.RandomNum];
+        for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
         {
             EnemyUI = Instantiate(m_enemyUIPrefab);
             EnemyUIList[i] = EnemyUI;
