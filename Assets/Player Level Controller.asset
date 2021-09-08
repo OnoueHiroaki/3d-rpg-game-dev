@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41946dff3c760ed43bcedfcf6902e4e3, type: 3}
+  m_Name: Player Level Controller
+  m_EditorClassIdentifier: 
+  m_level: 0100000002000000030000000400000005000000
+  m_maxHP: 0f00000014000000190000001e00000023000000
+  m_maxMP: 030000000500000007000000090000000b000000
+  m_agility: 14000000190000001e0000002300000028000000
+  m_defence: 0300000006000000090000000c0000000f000000
