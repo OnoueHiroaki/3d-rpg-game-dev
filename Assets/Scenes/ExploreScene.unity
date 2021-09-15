@@ -289,8 +289,8 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 645066203}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &423084268
-BoxCollider:
+--- !u!64 &423084268
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -299,9 +299,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 30.53743, y: 0.92253083, z: 29.895535}
-  m_Center: {x: 0.02624178, y: 0.17791495, z: -0.08560705}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 661464e19c087564badb2bf5230c842c, type: 3}
 --- !u!1001 &554501018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1615,7 +1616,7 @@ PrefabInstance:
     - target: {fileID: 8782244935498320725, guid: c66064d56e3abe94685216320663f0cd,
         type: 3}
       propertyPath: m_movingSpeed
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8782244935498320725, guid: c66064d56e3abe94685216320663f0cd,
         type: 3}

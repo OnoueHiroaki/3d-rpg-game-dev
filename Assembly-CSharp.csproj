@@ -264,7 +264,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="clipper_library">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/PackageCache/com.unity.cinemachine@2.7.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -612,40 +612,40 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/vantan/OneDrive/ドキュメント/unityproject/3DRpgGameDev1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

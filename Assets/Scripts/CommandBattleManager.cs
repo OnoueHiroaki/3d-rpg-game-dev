@@ -60,23 +60,23 @@ public class CommandBattleManager : MonoBehaviour
     void Update()
     {
         GetEnemyAgilityUpdate();
-        m_playerAgilitySlider.value += m_player.m_playerAgility * Time.deltaTime;
+        m_playerAgilitySlider.value += m_player.m_agility * Time.deltaTime;
         EnemyAttack();
-        m_hPText.text = "HP                          " + m_player.PlayerCurrentHP;
-        m_mPText.text = "MP                          " + m_player.PlayerCurrentMP;
+        m_hPText.text = "HP                          " + m_player.CurrentHP;
+        m_mPText.text = "MP                          " + m_player.CurrentMP;
     }
 
     void GetEnemyAgilityUpdate()
     {
-        m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].m_enemyAgility);
+        m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].m_agility);
         if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_enemyAgility);
+            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_agility);
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_enemyAgility);
-            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].m_enemyAgility);
+            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_agility);
+            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].m_agility);
         }
     }
     /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
@@ -105,8 +105,8 @@ public class CommandBattleManager : MonoBehaviour
         GetMushroomEnemy(num);
         var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
         m_mushroomEnemy[num].
-                        EnemyDamage(damage.ReceiveDamage(m_player.m_playerMagicPow,
-                        m_mushroomEnemy[num].m_enemyDefensivePower));
+                        EnemyDamage(damage.ReceiveDamage(m_player.m_magicPow,
+                        m_mushroomEnemy[num].m_defensivePower));
     }
     /// <summary>プレイヤーがボタンを使って逃げるためのメソッド</summary>
     public void PlayerEscape()
@@ -142,7 +142,7 @@ public class CommandBattleManager : MonoBehaviour
     void EnemyAttackDamage(int num)
     {
         var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
-        m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy[num].m_enemyAttackPow, m_player.m_playerDefensivePower)); ;
+        m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy[num].m_attackPow, m_player.m_defensivePower)); ;
         EndAttack(m_enemyAgilitySlider[num]);
     }
 
@@ -165,46 +165,46 @@ public class CommandBattleManager : MonoBehaviour
     void EnemyHPSliderUpdate()
     {
         m_enemyHPSlider[EnemyGenerator.Instance.SelectNum].value =
-            m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_enemyCurrentHP;
+            m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_currentHP;
         if (1 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
                 SceneManager.LoadScene("ExploreScene");
             }
         }
         else if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_enemyCurrentHP && 0 >= m_mushroomEnemy[1].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP)
             {
                 SceneManager.LoadScene("ExploreScene");
             }
-            if (0 >= m_mushroomEnemy[0].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
-                m_mushroomEnemy[0].m_enemyAgility = 0;
+                m_mushroomEnemy[0].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[1].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[1].m_currentHP)
             {
-                m_mushroomEnemy[1].m_enemyAgility = 0;
+                m_mushroomEnemy[1].m_agility = 0;
             }
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_enemyCurrentHP && 0 >= m_mushroomEnemy[1].m_enemyCurrentHP && 0 >= m_mushroomEnemy[2].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP && 0 >= m_mushroomEnemy[2].m_currentHP)
             {
                 SceneManager.LoadScene("ExploreScene");
             }
-            if (0 >= m_mushroomEnemy[0].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
-                m_mushroomEnemy[0].m_enemyAgility = 0;
+                m_mushroomEnemy[0].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[1].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[1].m_currentHP)
             {
-                m_mushroomEnemy[1].m_enemyAgility = 0;
+                m_mushroomEnemy[1].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[2].m_enemyCurrentHP)
+            if (0 >= m_mushroomEnemy[2].m_currentHP)
             {
-                m_mushroomEnemy[2].m_enemyAgility = 0;
+                m_mushroomEnemy[2].m_agility = 0;
             }
         }
     }
@@ -225,12 +225,12 @@ public class CommandBattleManager : MonoBehaviour
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
     void PlayerHPSliderUpdate()
     {
-        m_playerHPSlider.value = m_player.PlayerCurrentHP;
+        m_playerHPSlider.value = m_player.CurrentHP;
     }
     /// <summary>プレイヤーのMPバーが現在のMPと同じ数値にする関数</summary>
     void PlayerMPSliderUpdate()
     {
-        m_playerMPSlider.value = m_player.PlayerCurrentMP;
+        m_playerMPSlider.value = m_player.CurrentMP;
     }
 
     void StartEnemyUI()
@@ -253,19 +253,19 @@ public class CommandBattleManager : MonoBehaviour
     }
     void EnemyUI(int index)
     {
-        m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].m_enemyMaxHP;
-        m_enemyHPSlider[index].value = m_mushroomEnemy[index].m_enemyCurrentHP;
-        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].m_enemyMaxAgility;
+        m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].m_maxHP;
+        m_enemyHPSlider[index].value = m_mushroomEnemy[index].m_currentHP;
+        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].m_maxAgility;
         m_enemyAgilitySlider[index].value = 0;
     }
 
     void PlayerUI()
     {
-        m_playerHPSlider.maxValue = m_player.m_playerMaxHP;
-        m_playerHPSlider.value = m_player.PlayerCurrentHP;
-        m_playerMPSlider.maxValue = m_player.m_playerMaxMp;
-        m_playerMPSlider.value = m_player.PlayerCurrentMP;
-        m_playerAgilitySlider.maxValue = m_player.m_playerMaxAgility;
+        m_playerHPSlider.maxValue = m_player.m_maxHP;
+        m_playerHPSlider.value = m_player.CurrentHP;
+        m_playerMPSlider.maxValue = m_player.m_maxMp;
+        m_playerMPSlider.value = m_player.CurrentMP;
+        m_playerAgilitySlider.maxValue = m_player.m_maxAgility;
         m_playerAgilitySlider.value = 0;
     }
     /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>

@@ -189,14 +189,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d603179b4ffeab243bbad7cb1edc87c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyMaxHP: 20
-  m_enemyCurrentHP: 20
-  EnemyMP: 3
-  m_enemyAttackPow: 7
-  m_enemyMagicPow: 3
-  m_enemyDefensivePower: 3
-  m_enemyAgility: 30
-  m_enemyMaxAgility: 100
+  m_maxHP: 30
+  m_currentHP: 30
+  m_mP: 0
+  m_attackPow: 7
+  m_magicPow: 0
+  m_defensivePower: 0
+  m_agility: 10
+  m_maxAgility: 100
+  m_exp: 30
 --- !u!1 &525366187436377327
 GameObject:
   m_ObjectHideFlags: 0
