@@ -12,26 +12,37 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] Slider m_playerMPSlider;
     //プレイヤーの素早さのスライダー
     [SerializeField] Slider m_playerAgilitySlider;
+
     //敵のHPスライダー
     Slider[] m_enemyHPSlider = default;
     //敵のAgilityスライダー
     Slider[] m_enemyAgilitySlider = default;
+
     [SerializeField] Text m_hPText;
     [SerializeField] Text m_mPText;
+    [SerializeField] Text m_winText;
+
     [SerializeField] Animator m_firstPanel;
     [SerializeField] Animator m_secondPanel;
+
     [SerializeField] EnemyGenerator m_enemyGenerator;
     [SerializeField] EnemyUIGenerator m_enemyUIGenerator;
+    [SerializeField] PlayerLevelController m_playerLevelController;
+    [SerializeField] GetExp m_getExp;
+    [SerializeField] GameObject m_winPanel;
     EnemyUI[] m_enemyUI;
     MushroomEnemyStatus[] m_mushroomEnemy;
     PlayerStatus m_player;
+
     void Start()
     {
         m_enemyUI = new EnemyUI[EnemyGenerator.Instance.RandomNum];
         m_enemyHPSlider = new Slider[EnemyGenerator.Instance.RandomNum];
         m_enemyAgilitySlider = new Slider[EnemyGenerator.Instance.RandomNum];
         m_mushroomEnemy = new MushroomEnemyStatus[EnemyGenerator.Instance.RandomNum];
+
         m_player = PlayerStatus.Instance;
+        PlayerState();
         for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
         {
             m_enemyUI[i] = m_enemyUIGenerator.EnemyUIList[i].GetComponent<EnemyUI>();
@@ -40,9 +51,13 @@ public class CommandBattleManager : MonoBehaviour
         }
         GetEnemyHPSlider();
         GetEnemyAgilitySlider();
+
+        m_winText.gameObject.SetActive(false);
+        m_winPanel.gameObject.SetActive(false);
         SecondPanelInactive();
         PlayerUI();
         StartEnemyUI();
+
         m_player.OnPlayeHPChange += PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += PlayerMPSliderUpdate;
         m_mushroomEnemy[0].OnEnemyHPChange += EnemyHPSliderUpdate;
@@ -55,17 +70,27 @@ public class CommandBattleManager : MonoBehaviour
             m_mushroomEnemy[1].OnEnemyHPChange += EnemyHPSliderUpdate;
             m_mushroomEnemy[2].OnEnemyHPChange += EnemyHPSliderUpdate;
         }
-
     }
     void Update()
     {
         GetEnemyAgilityUpdate();
-        m_playerAgilitySlider.value += m_player.m_agility * Time.deltaTime;
+        m_playerAgilitySlider.value += m_player.Agility * Time.deltaTime;
         EnemyAttack();
         m_hPText.text = "HP                          " + m_player.CurrentHP;
         m_mPText.text = "MP                          " + m_player.CurrentMP;
     }
-
+    void PlayerState()
+    {
+        m_player.MaxHP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxHP;
+        m_player.MaxMP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxMP;
+        m_player.AttackPow = m_playerLevelController.GetData(m_player.CurrentLevel).AttackPow;
+        m_player.MaxAgility = m_playerLevelController.GetData(m_player.CurrentLevel).MaxAgility;
+        m_player.Agility = m_playerLevelController.GetData(m_player.CurrentLevel).Agility;
+        m_player.MagicPow = m_playerLevelController.GetData(m_player.CurrentLevel).MagicAttackPow;
+        m_player.DefensivePower = m_playerLevelController.GetData(m_player.CurrentLevel).Defence;
+        m_player.MaxExp = m_playerLevelController.GetData(m_player.CurrentLevel).MaxExp;
+        //m_player.CurrentLevel = m_playerLevelController.GetData(m_player.CurrentLevel).Level;
+    }
     void GetEnemyAgilityUpdate()
     {
         m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].m_agility);
@@ -105,7 +130,7 @@ public class CommandBattleManager : MonoBehaviour
         GetMushroomEnemy(num);
         var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
         m_mushroomEnemy[num].
-                        EnemyDamage(damage.ReceiveDamage(m_player.m_magicPow,
+                        EnemyDamage(damage.ReceiveDamage(m_player.MagicPow,
                         m_mushroomEnemy[num].m_defensivePower));
     }
     /// <summary>プレイヤーがボタンを使って逃げるためのメソッド</summary>
@@ -142,7 +167,7 @@ public class CommandBattleManager : MonoBehaviour
     void EnemyAttackDamage(int num)
     {
         var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
-        m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy[num].m_attackPow, m_player.m_defensivePower)); ;
+        m_player.PlayerDamage(damage.ReceiveDamage(m_mushroomEnemy[num].m_attackPow, m_player.DefensivePower)); ;
         EndAttack(m_enemyAgilitySlider[num]);
     }
 
@@ -170,14 +195,24 @@ public class CommandBattleManager : MonoBehaviour
         {
             if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
-                SceneManager.LoadScene("ExploreScene");
+                m_mushroomEnemy[0].m_agility = 0;
+                var getExp = m_mushroomEnemy[0].m_exp;
+                m_winText.gameObject.SetActive(true);
+                m_winPanel.gameObject.SetActive(true);
+                m_getExp.SetExp(m_player.CurrentExp, getExp);
+                m_winText.text = m_player.CurrentLevel.ToString();
+                //SceneManager.LoadScene("ExploreScene");
             }
         }
         else if (2 == EnemyGenerator.Instance.RandomNum)
         {
             if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP)
             {
-                SceneManager.LoadScene("ExploreScene");
+                var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp;
+                m_winText.gameObject.SetActive(true);
+                m_winPanel.gameObject.SetActive(true);
+                m_getExp.SetExp(m_player.CurrentExp, getExp);
+                //SceneManager.LoadScene("ExploreScene");
             }
             if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
@@ -190,9 +225,15 @@ public class CommandBattleManager : MonoBehaviour
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP && 0 >= m_mushroomEnemy[2].m_currentHP)
+            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP && 
+                0 >= m_mushroomEnemy[2].m_currentHP)
             {
-                SceneManager.LoadScene("ExploreScene");
+                var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp + 
+                    m_mushroomEnemy[2].m_exp;
+                m_winText.gameObject.SetActive(true);
+                m_winPanel.gameObject.SetActive(true);
+                m_getExp.SetExp(m_player.CurrentExp, getExp);
+                //SceneManager.LoadScene("ExploreScene");
             }
             if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
@@ -241,31 +282,34 @@ public class CommandBattleManager : MonoBehaviour
         }
         else if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            EnemyUI(0);
-            EnemyUI(1);
+            for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
+            {
+                EnemyUI(i);
+            }
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            EnemyUI(0);
-            EnemyUI(1);
-            EnemyUI(2);
+            for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
+            {
+                EnemyUI(i);
+            }
         }
     }
     void EnemyUI(int index)
     {
         m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].m_maxHP;
         m_enemyHPSlider[index].value = m_mushroomEnemy[index].m_currentHP;
-        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].m_maxAgility;
+        m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].MaxAgility;
         m_enemyAgilitySlider[index].value = 0;
     }
 
     void PlayerUI()
     {
-        m_playerHPSlider.maxValue = m_player.m_maxHP;
+        m_playerHPSlider.maxValue = m_player.MaxHP;
         m_playerHPSlider.value = m_player.CurrentHP;
-        m_playerMPSlider.maxValue = m_player.m_maxMp;
+        m_playerMPSlider.maxValue = m_player.MaxMP;
         m_playerMPSlider.value = m_player.CurrentMP;
-        m_playerAgilitySlider.maxValue = m_player.m_maxAgility;
+        m_playerAgilitySlider.maxValue = m_player.MaxAgility;
         m_playerAgilitySlider.value = 0;
     }
     /// <summary>最初のパネルを隠して二番目のパネルを表示する</summary>

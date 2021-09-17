@@ -432,32 +432,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130203257}
   m_CullTransparentMesh: 0
---- !u!1 &141982550 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8654250720420973338, guid: 34115fd4eff069845a47d22ce756724e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1831199830}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &141982551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141982550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d603179b4ffeab243bbad7cb1edc87c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_enemyMaxHP: 30
-  m_enemyCurrentHP: 30
-  EnemyMP: 3
-  m_enemyAttackPow: 7
-  m_enemyMagicPow: 3
-  m_enemyDefensivePower: 3
-  m_enemyAgility: 50
-  m_enemyMaxAgility: 100
 --- !u!1 &167781172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,6 +2869,8 @@ MonoBehaviour:
   m_secondPanel: {fileID: 325843433}
   m_enemyGenerator: {fileID: 1462851452}
   m_enemyUIGenerator: {fileID: 1894000661}
+  m_playerLevelController: {fileID: 11400000, guid: 5e773446c5b37a347bc1f67c65227fbc,
+    type: 2}
 --- !u!4 &1782319140
 Transform:
   m_ObjectHideFlags: 0
