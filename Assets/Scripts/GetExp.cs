@@ -30,7 +30,7 @@ public class GetExp : MonoBehaviour
         if (saveExp > 0)
         {
             currentExp = saveExp;
-            //m_textManager.WinLevelUpText(m_playerStatus.CurrentLevel);
+            m_textManager.WinText(m_playerStatus.CurrentLevel, currentExp);
             Debug.Log($"現在(残り)の Exp ;{currentExp}");
             return currentExp;
         }
@@ -39,8 +39,8 @@ public class GetExp : MonoBehaviour
             // レベルアップの処理
             m_levelId++;
             m_playerStatus.CurrentLevel++;
-            m_textManager.WinLevelUpText(m_playerStatus.CurrentLevel);
             currentExp = m_levelData.GetData(m_levelId).MaxExp;
+            m_textManager.WinText(m_playerStatus.CurrentLevel, currentExp);
             Debug.Log($"レベルアップ後のExp :{currentExp}");
             // レベルアップの処理 別のパラメーター変化は省略
 
@@ -53,8 +53,6 @@ public class GetExp : MonoBehaviour
                 SetExp(currentExp, saveExp * -1);
             }
         }
-
-        Debug.LogError("aaaa");
-        return 0;
+        return currentExp;
     }
 }

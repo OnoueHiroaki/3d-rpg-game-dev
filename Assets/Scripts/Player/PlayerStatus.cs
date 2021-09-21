@@ -6,7 +6,7 @@ public class PlayerStatus
 {
     static PlayerStatus m_instance = new PlayerStatus();
     static public PlayerStatus Instance => m_instance;
-    private PlayerStatus() { }
+    public PlayerStatus() { }
 
     public int CurrentLevel { get; set; }
     public int MaxHP { get; set; }
@@ -15,7 +15,7 @@ public class PlayerStatus
     public int CurrentMP { get; set; } = 3;
     public int AttackPow { get; set; }
     public int MagicPow { get; set; }
-    public int DefensivePower { get; set; }
+    public int DefensePower { get; set; }
     public int Agility { get; set; }
     public int MaxAgility { get; set; }
     public int MaxExp { get; set; }

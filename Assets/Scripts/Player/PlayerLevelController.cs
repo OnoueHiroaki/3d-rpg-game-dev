@@ -8,11 +8,11 @@ public class PlayerLevelController : ScriptableObject
     [SerializeField] List<PlayerLevel> m_players = new List<PlayerLevel>();
     public PlayerLevel GetData(int num) => m_players[num];
 }
-
+/// <summary>プレイヤーのステータスのデータ</summary>
 [System.Serializable]
 public class PlayerLevel
 {
-    //プレイヤーのレベル
+    [SerializeField] string m_levelName;
     [SerializeField] int m_level;
     public int Level { get => m_level; }
 
@@ -32,8 +32,8 @@ public class PlayerLevel
 
     [SerializeField] int m_agility;
     public int Agility { get => m_agility; }
-    [SerializeField] int m_defence;
-    public int Defence { get => m_defence; }
+    [SerializeField] int m_defense;
+    public int Defense { get => m_defense; }
     [SerializeField] int m_maxExp;
     public int MaxExp { get => m_maxExp; }
 }

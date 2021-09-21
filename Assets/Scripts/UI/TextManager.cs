@@ -8,20 +8,16 @@ public class TextManager : MonoBehaviour
     [SerializeField] Text m_winText;
     [SerializeField] Text m_hPText;
     [SerializeField] Text m_mPText;
-    PlayerStatus m_playerStatus;
-    private void Start()
-    {
-        m_playerStatus = PlayerStatus.Instance;
-    }
+
     public void PlayerStatusUpdate(int m_currentHP, int m_currentMP)
     {
         m_hPText.text = "HP                          " + m_currentHP;
         m_mPText.text = "MP                          " + m_currentMP;
     }
-    public void WinLevelUpText(int m_playerLevel)
+    public void WinText(int m_playerLevel, int m_playerMaxExp)
     {
-        var exp = m_playerStatus.MaxExp - m_playerStatus.CurrentExp;
-        m_winText.text = "レベルが" + m_playerLevel + "になった" + "\n"
-                         + "次のレベルまであと" + exp + "Expです";
+        var level = m_playerLevel + 1;
+        m_winText.text = "現在のレベルは " + level + " です" + "\n"
+                         + "次のレベルまであと " + m_playerMaxExp + " Expです";
     }
 }
