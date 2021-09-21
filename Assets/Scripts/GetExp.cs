@@ -5,19 +5,15 @@ using UnityEngine;
 public class GetExp : MonoBehaviour
 {
     [SerializeField] PlayerLevelController m_levelData;
-    [SerializeField] int m_getEx;
-    PlayerStatus m_playerStatus;
+    [SerializeField] TextManager m_textManager;
 
-    int m_crrentEx;
-    bool m_flag = false;
-    //int m_levelId = 0;
+    PlayerStatus m_playerStatus;
+    static int m_levelId = 0;
 
     void Start()
     {
         m_playerStatus = PlayerStatus.Instance;
-        //if (m_crrentEx == 0) m_crrentEx = m_levelData.GetData(m_playerStatus.CurrentLevel).Level;
-
-        //SetEx(m_crrentEx, m_getEx);
+        //if (m_crrentEx == 0) m_crrentEx = m_levelData.GetData(m_levelId).MaxExp;
     }
 
     /// <summary>
@@ -25,38 +21,40 @@ public class GetExp : MonoBehaviour
     /// </summary>
     /// <param name="currentExp">現在の残り経験値</param>
     /// <param name="getExp">外部から取得した経験値</param>
-    public void SetExp(int currentExp, int getExp)
+    public int SetExp(int currentExp, int getExp)
     {
+        if (currentExp == 0) currentExp = m_levelData.GetData(m_levelId).MaxExp;
         // 現在の残り経験値から、外部から取得した経験値を引いたものを一時的に保存する。
         int saveExp = currentExp - getExp;
-
+        //Debug.Log($"一時的保存 :{saveExp}");
         if (saveExp > 0)
         {
             currentExp = saveExp;
-            //Debug.Log($"現在のレベル :{m_levelData.GetData(m_playerStatus.CurrentLevel).Level} 次のレベルまで :{crrentEx}");
-            return;
+            //m_textManager.WinLevelUpText(m_playerStatus.CurrentLevel);
+            Debug.Log($"現在(残り)の Exp ;{currentExp}");
+            return currentExp;
         }
         else
         {
-            if (saveExp >= m_levelData.GetData(m_playerStatus.CurrentLevel).MaxExp)
-            {
-                // レベルアップの処理
-                m_playerStatus.CurrentLevel++;
-                Debug.Log("aaa");
-            }
+            // レベルアップの処理
+            m_levelId++;
+            m_playerStatus.CurrentLevel++;
+            m_textManager.WinLevelUpText(m_playerStatus.CurrentLevel);
+            currentExp = m_levelData.GetData(m_levelId).MaxExp;
+            Debug.Log($"レベルアップ後のExp :{currentExp}");
             // レベルアップの処理 別のパラメーター変化は省略
 
-            currentExp = m_levelData.GetData(m_playerStatus.CurrentLevel).MaxExp;
-            m_flag = true;
             if (saveExp == 0)
             {
-                //Debug.Log($"現在のレベル :{m_levelData.GetData(m_playerStatus.CurrentLevel).Level} 次のレベルまで :{crrentEx}");
-                return;
+                return currentExp;
             }
             else
             {
                 SetExp(currentExp, saveExp * -1);
             }
         }
+
+        Debug.LogError("aaaa");
+        return 0;
     }
 }

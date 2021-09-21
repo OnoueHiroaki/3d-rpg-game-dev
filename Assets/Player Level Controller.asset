@@ -18,7 +18,7 @@ MonoBehaviour:
     m_maxMP: 3
     m_attackPow: 4
     m_magicAttackPow: 2
-    m_maxAgility: 40
+    m_maxAgility: 30
     m_agility: 10
     m_defence: 3
     m_maxExp: 20
@@ -27,7 +27,7 @@ MonoBehaviour:
     m_maxMP: 4
     m_attackPow: 6
     m_magicAttackPow: 5
-    m_maxAgility: 40
+    m_maxAgility: 30
     m_agility: 12
     m_defence: 5
     m_maxExp: 100
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_maxMP: 6
     m_attackPow: 7
     m_magicAttackPow: 6
-    m_maxAgility: 40
+    m_maxAgility: 35
     m_agility: 15
     m_defence: 7
     m_maxExp: 200
@@ -45,7 +45,7 @@ MonoBehaviour:
     m_maxMP: 7
     m_attackPow: 9
     m_magicAttackPow: 7
-    m_maxAgility: 40
+    m_maxAgility: 35
     m_agility: 17
     m_defence: 8
     m_maxExp: 320
@@ -54,7 +54,7 @@ MonoBehaviour:
     m_maxMP: 9
     m_attackPow: 11
     m_magicAttackPow: 9
-    m_maxAgility: 40
+    m_maxAgility: 35
     m_agility: 19
     m_defence: 10
     m_maxExp: 500

@@ -18,10 +18,6 @@ public class CommandBattleManager : MonoBehaviour
     //敵のAgilityスライダー
     Slider[] m_enemyAgilitySlider = default;
 
-    [SerializeField] Text m_hPText;
-    [SerializeField] Text m_mPText;
-    [SerializeField] Text m_winText;
-
     [SerializeField] Animator m_firstPanel;
     [SerializeField] Animator m_secondPanel;
 
@@ -30,6 +26,8 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] PlayerLevelController m_playerLevelController;
     [SerializeField] GetExp m_getExp;
     [SerializeField] GameObject m_winPanel;
+    [SerializeField] TextManager m_textManager;
+
     EnemyUI[] m_enemyUI;
     MushroomEnemyStatus[] m_mushroomEnemy;
     PlayerStatus m_player;
@@ -51,8 +49,6 @@ public class CommandBattleManager : MonoBehaviour
         }
         GetEnemyHPSlider();
         GetEnemyAgilitySlider();
-
-        m_winText.gameObject.SetActive(false);
         m_winPanel.gameObject.SetActive(false);
         SecondPanelInactive();
         PlayerUI();
@@ -74,23 +70,11 @@ public class CommandBattleManager : MonoBehaviour
     void Update()
     {
         GetEnemyAgilityUpdate();
+        m_textManager.PlayerStatusUpdate(m_player.CurrentHP,m_player.CurrentMP);
         m_playerAgilitySlider.value += m_player.Agility * Time.deltaTime;
         EnemyAttack();
-        m_hPText.text = "HP                          " + m_player.CurrentHP;
-        m_mPText.text = "MP                          " + m_player.CurrentMP;
     }
-    void PlayerState()
-    {
-        m_player.MaxHP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxHP;
-        m_player.MaxMP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxMP;
-        m_player.AttackPow = m_playerLevelController.GetData(m_player.CurrentLevel).AttackPow;
-        m_player.MaxAgility = m_playerLevelController.GetData(m_player.CurrentLevel).MaxAgility;
-        m_player.Agility = m_playerLevelController.GetData(m_player.CurrentLevel).Agility;
-        m_player.MagicPow = m_playerLevelController.GetData(m_player.CurrentLevel).MagicAttackPow;
-        m_player.DefensivePower = m_playerLevelController.GetData(m_player.CurrentLevel).Defence;
-        m_player.MaxExp = m_playerLevelController.GetData(m_player.CurrentLevel).MaxExp;
-        //m_player.CurrentLevel = m_playerLevelController.GetData(m_player.CurrentLevel).Level;
-    }
+    
     void GetEnemyAgilityUpdate()
     {
         m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].m_agility);
@@ -110,7 +94,7 @@ public class CommandBattleManager : MonoBehaviour
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
             PlayerAttackDamage(EnemyGenerator.Instance.SelectNum);
-            EnemyHPSliderUpdate();
+            //EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -197,10 +181,10 @@ public class CommandBattleManager : MonoBehaviour
             {
                 m_mushroomEnemy[0].m_agility = 0;
                 var getExp = m_mushroomEnemy[0].m_exp;
-                m_winText.gameObject.SetActive(true);
                 m_winPanel.gameObject.SetActive(true);
-                m_getExp.SetExp(m_player.CurrentExp, getExp);
-                m_winText.text = m_player.CurrentLevel.ToString();
+                m_player.CurrentExp = m_getExp.SetExp(m_player.CurrentExp, getExp);
+                PlayerState();
+                Debug.Log($"playerExp {m_player.CurrentExp}");
                 //SceneManager.LoadScene("ExploreScene");
             }
         }
@@ -209,7 +193,6 @@ public class CommandBattleManager : MonoBehaviour
             if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP)
             {
                 var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp;
-                m_winText.gameObject.SetActive(true);
                 m_winPanel.gameObject.SetActive(true);
                 m_getExp.SetExp(m_player.CurrentExp, getExp);
                 //SceneManager.LoadScene("ExploreScene");
@@ -230,7 +213,6 @@ public class CommandBattleManager : MonoBehaviour
             {
                 var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp + 
                     m_mushroomEnemy[2].m_exp;
-                m_winText.gameObject.SetActive(true);
                 m_winPanel.gameObject.SetActive(true);
                 m_getExp.SetExp(m_player.CurrentExp, getExp);
                 //SceneManager.LoadScene("ExploreScene");
@@ -248,6 +230,22 @@ public class CommandBattleManager : MonoBehaviour
                 m_mushroomEnemy[2].m_agility = 0;
             }
         }
+    }
+    void PlayerState()
+    {
+        m_player.MaxHP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxHP;
+        m_player.MaxMP = m_playerLevelController.GetData(m_player.CurrentLevel).MaxMP;
+        m_player.AttackPow = m_playerLevelController.GetData(m_player.CurrentLevel).AttackPow;
+        m_player.MaxAgility = m_playerLevelController.GetData(m_player.CurrentLevel).MaxAgility;
+        m_player.Agility = m_playerLevelController.GetData(m_player.CurrentLevel).Agility;
+        m_player.MagicPow = m_playerLevelController.GetData(m_player.CurrentLevel).MagicAttackPow;
+        m_player.DefensivePower = m_playerLevelController.GetData(m_player.CurrentLevel).Defence;
+        //m_player.MaxExp = m_playerLevelController.GetData(m_player.CurrentLevel).MaxExp;
+        //m_player.CurrentLevel = m_playerLevelController.GetData(m_player.CurrentLevel).Level;
+    }
+    void PlayerWinText()
+    {
+        //m_winText.text = "レベルが" + m_player.CurrentLevel.ToString();
     }
     void GetEnemyAgilitySlider()
     {

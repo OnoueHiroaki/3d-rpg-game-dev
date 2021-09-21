@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyUIGenerator.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUIList.cs" />
+    <Compile Include="Assets\Scripts\UI\TextManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <None Include="Assets\AssetStoreTools\Kevin Iglesias\3DCharacterDummy\Readme.txt" />
     <Reference Include="UnityEngine">

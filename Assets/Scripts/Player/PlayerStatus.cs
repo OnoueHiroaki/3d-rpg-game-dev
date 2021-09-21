@@ -8,32 +8,16 @@ public class PlayerStatus
     static public PlayerStatus Instance => m_instance;
     private PlayerStatus() { }
 
-    //現在のレベル
     public int CurrentLevel { get; set; }
-
-    //最大HP
     public int MaxHP { get; set; }
-    //現在のHP
     public int CurrentHP { get; set; } = 20;
-
-    //最大MP
     public int MaxMP { get; set; }
-    //現在のMP
     public int CurrentMP { get; set; } = 3;
-
-    //プレイヤー自身の攻撃力
     public int AttackPow { get; set; }
-    //プレイヤー自身の魔法攻撃力
     public int MagicPow { get; set; }
-    //プレイヤー自身の守備力
     public int DefensivePower { get; set; }
-
-    //プレイヤーの素早さ
     public int Agility { get; set; }
-    //素早さの最大値(AgilityBarのMaxValue)
     public int MaxAgility { get; set; }
-
-    //最大経験値
     public int MaxExp { get; set; }
     public int CurrentExp { get; set; } = 0;
 
