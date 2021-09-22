@@ -62,4 +62,4 @@ MonoBehaviour:
     m_maxAgility: 35
     m_agility: 19
     m_defense: 0
-    m_maxExp: 500
+    m_maxExp: 100000

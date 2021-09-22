@@ -192,7 +192,7 @@ MonoBehaviour:
   m_maxHP: 7
   m_currentHP: 7
   m_mP: 0
-  m_attackPow: 5
+  m_attackPow: 3
   m_magicPow: 0
   m_defensivePower: 0
   m_agility: 15
