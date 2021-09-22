@@ -28,6 +28,7 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] GameObject m_winPanel;
     [SerializeField] TextManager m_textManager;
     [SerializeField] UIManager m_uIManager;
+
     EnemyUI[] m_enemyUI;
     MushroomEnemyStatus[] m_mushroomEnemy;
     PlayerStatus m_player;
@@ -93,7 +94,7 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue)
         {
-            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum,m_player.AttackPow);
+            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum, m_player.AttackPow);
             EndAttack(m_playerAgilitySlider);
         }
     }
@@ -102,7 +103,7 @@ public class CommandBattleManager : MonoBehaviour
     {
         if (m_playerAgilitySlider.value == m_playerAgilitySlider.maxValue && m_playerMPSlider.value >= 3)
         {
-            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum,m_player.MagicPow);
+            PlayerAttackDamage(EnemyGenerator.Instance.SelectNum, m_player.MagicPow);
             m_player.PlayerMPDown(3);
             EnemyHPSliderUpdate();
             EndAttack(m_playerAgilitySlider);
@@ -128,6 +129,7 @@ public class CommandBattleManager : MonoBehaviour
         {
             EnemyAttackDamage(0);
         }
+
         if (2 == EnemyGenerator.Instance.RandomNum)
         {
             if (m_enemyAgilitySlider[1].value == m_enemyAgilitySlider[1].maxValue)
@@ -199,11 +201,11 @@ public class CommandBattleManager : MonoBehaviour
                 m_player.Agility = 0;
                 m_uIManager.WinButton.gameObject.SetActive(true);
             }
-            if (0 >= m_mushroomEnemy[0].m_currentHP)
+            else if (0 >= m_mushroomEnemy[0].m_currentHP)
             {
                 m_mushroomEnemy[0].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[1].m_currentHP)
+            else if (0 >= m_mushroomEnemy[1].m_currentHP)
             {
                 m_mushroomEnemy[1].m_agility = 0;
             }
@@ -214,7 +216,7 @@ public class CommandBattleManager : MonoBehaviour
                 0 >= m_mushroomEnemy[2].m_currentHP)
             {
                 var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp +
-                    m_mushroomEnemy[2].m_exp;
+                             m_mushroomEnemy[2].m_exp;
                 m_winPanel.gameObject.SetActive(true);
                 m_player.CurrentExp = m_getExp.SetExp(m_player.CurrentExp, getExp);
                 PlayerState();
@@ -225,11 +227,11 @@ public class CommandBattleManager : MonoBehaviour
             {
                 m_mushroomEnemy[0].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[1].m_currentHP)
+            else if (0 >= m_mushroomEnemy[1].m_currentHP)
             {
                 m_mushroomEnemy[1].m_agility = 0;
             }
-            if (0 >= m_mushroomEnemy[2].m_currentHP)
+            else if (0 >= m_mushroomEnemy[2].m_currentHP)
             {
                 m_mushroomEnemy[2].m_agility = 0;
             }
@@ -247,10 +249,6 @@ public class CommandBattleManager : MonoBehaviour
         //m_player.MaxExp = m_playerLevelController.GetData(m_player.CurrentLevel).MaxExp;
         //m_player.CurrentLevel = m_playerLevelController.GetData(m_player.CurrentLevel).Level;
     }
-    void PlayerWinText()
-    {
-        //m_winText.text = "レベルが" + m_player.CurrentLevel.ToString();
-    }
     void GetEnemyAgilitySlider()
     {
         for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
@@ -262,7 +260,7 @@ public class CommandBattleManager : MonoBehaviour
     void GetMushroomEnemy(int selectNum)
     {
         m_mushroomEnemy[selectNum] = m_enemyGenerator.EnemyList[selectNum]
-            .GetComponent<MushroomEnemyStatus>();
+                                     .GetComponent<MushroomEnemyStatus>();
     }
 
     /// <summary>プレイヤーのHPバーが現在のHPと同じ数値にする関数</summary>
