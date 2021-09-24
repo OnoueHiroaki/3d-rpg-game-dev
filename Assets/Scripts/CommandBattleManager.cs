@@ -28,11 +28,13 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] GameObject m_winPanel;
     [SerializeField] TextManager m_textManager;
     [SerializeField] UIManager m_uIManager;
+    
     PlayerHPChange m_playerHPChange;
     EnemyUI[] m_enemyUI;
     MushroomEnemyStatus[] m_mushroomEnemy;
     PlayerStatus m_player;
     PlayerAttackDamage m_playerAttackDamage;
+    
     void Start()
     {
         m_enemyUI = new EnemyUI[EnemyGenerator.Instance.RandomNum];
