@@ -72,14 +72,15 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyTarget.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomEnemyStatus.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipmentBase.cs" />
+    <Compile Include="Assets\Scripts\GameFinish.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GetExp.cs" />
     <Compile Include="Assets\Scripts\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttackDamage.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerHPChange.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerLevelController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
-    <Compile Include="Assets\Scripts\PlayerHPChange.cs" />
     <Compile Include="Assets\Scripts\Recovery.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\UI\CommandBattleText.cs" />
