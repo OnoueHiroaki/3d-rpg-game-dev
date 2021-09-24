@@ -22,18 +22,35 @@ public class MushroomEnemyStatus : MonoBehaviour, IDamagable
     //敵が持っている経験値
     public int m_exp = 30;
     public event Action OnEnemyHPChange;
+    Animation m_anim;
+    void Start()
+    {
+        m_anim = gameObject.GetComponent<Animation>();
+    }
 
+    public void AttackAnim()
+    {
+        m_anim.Play("Attack");
+    }
+    public void DamageAnim()
+    {
+        m_anim.Play("Damage");
+    }
+    public void DeathAnim()
+    {
+        m_anim.Play("Death");
+    }
     public void EnemyDamage(int damage)
     {
         m_currentHP -= damage;
         OnEnemyHPChange?.Invoke();
     }
-    int IDamagable.ReceiveDamage(int attack, int defense)
+    int IDamagable.ReceiveDamage(int attack, int magicDamage, int defense)
     {
-        if (0 >= attack - defense / 2)
+        if (0 >= attack + magicDamage - defense / 2)
         {
             return 0;
         }
-       return attack - defense / 2;
+        return attack + magicDamage - defense / 2;
     }
 }

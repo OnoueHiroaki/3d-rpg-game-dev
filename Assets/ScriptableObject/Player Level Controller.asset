@@ -18,7 +18,7 @@ MonoBehaviour:
     m_maxHP: 20
     m_maxMP: 3
     m_attackPow: 4
-    m_magicAttackPow: 2
+    m_magicAttackPow: 3
     m_maxAgility: 30
     m_agility: 10
     m_defense: 0

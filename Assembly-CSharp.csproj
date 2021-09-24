@@ -64,9 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MushroomCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\CommandBattleManager.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
-    <Compile Include="Assets\Scripts\DamageCaster.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGenerator.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyTarget.cs" />
@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\GetExp.cs" />
     <Compile Include="Assets\Scripts\IDamagable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttackDamage.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerHPChange.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerLevelController.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Assets\Scripts\UI\PlayerUIList.cs" />
     <Compile Include="Assets\Scripts\UI\TextManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
-    <None Include="Assets\AssetStoreTools\Kevin Iglesias\3DCharacterDummy\Readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
