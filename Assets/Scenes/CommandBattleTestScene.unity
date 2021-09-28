@@ -3539,8 +3539,7 @@ MonoBehaviour:
   m_textManager: {fileID: 581772304}
   m_uIManager: {fileID: 512384773}
   m_playerAnim: {fileID: 984440891}
-  m_mushAnim: {fileID: 2501425533139958995, guid: be6cd979204792543bac89474a9aeeee,
-    type: 3}
+  m_mushAnim: {fileID: 0}
 --- !u!4 &1782319140
 Transform:
   m_ObjectHideFlags: 0

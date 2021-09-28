@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackDamage : PlayerStatus
+public class PlayerAttackDamage : MonoBehaviour
 {
-    static PlayerAttackDamage m_instance = new PlayerAttackDamage();
-    static public new PlayerAttackDamage Instance => m_instance;
-    public PlayerAttackDamage() { }
+    public void GetAttackDamage(EnemyTarget enemyTarget ,int m_attackPow, int magicDamage)
+    {
+        enemyTarget.GetMushroomEnemy();
+        var damage = enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].GetComponent<IDamagable>();
+        enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].
+        EnemyDamage(damage.ReceiveDamage
+        (m_attackPow, magicDamage, enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].m_defensivePower));
+    }
 }

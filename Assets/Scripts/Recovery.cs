@@ -23,7 +23,6 @@ public class Recovery : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("aaa");
             m_playerStatus.CurrentHP = m_playerStatus.MaxHP;
             m_playerStatus.CurrentMP = m_playerStatus.MaxMP;
             StartCoroutine("TextActive");

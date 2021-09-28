@@ -64,12 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MushroomCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\CommandBattleManager.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGenerator.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyTarget.cs" />
+    <Compile Include="Assets\Scripts\Enemy\MushroomCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomEnemyStatus.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipmentBase.cs" />
     <Compile Include="Assets\Scripts\GameFinish.cs" />
@@ -84,9 +84,12 @@
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Recovery.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\Skill\DamageSkill.cs" />
+    <Compile Include="Assets\Scripts\Skill\SkillBase.cs" />
     <Compile Include="Assets\Scripts\UI\CommandBattleText.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyUIGenerator.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerSliderUpdate.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUIList.cs" />
     <Compile Include="Assets\Scripts\UI\TextManager.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />

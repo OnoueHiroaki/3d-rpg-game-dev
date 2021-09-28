@@ -14,7 +14,6 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject[] EnemyList { get;set; }
     /// <summary>敵を生成する数</summary>
     public int RandomNum { get; private set; }
-    public GameObject EnemyClone { get; set; }
     public int SelectNum { get; set; }
     void Awake()
     {

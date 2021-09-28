@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class PlayerStatus
 {
     static PlayerStatus m_instance = new PlayerStatus();
     static public PlayerStatus Instance => m_instance;
-    public PlayerStatus() { }
+    private PlayerStatus() { }
 
     public int CurrentLevel { get; set; }
     public int MaxHP { get; set; }

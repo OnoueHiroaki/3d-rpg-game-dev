@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class EnemyTarget : MonoBehaviour
 {
-    [SerializeField] private GameObject[] targets;
+    [SerializeField] MushroomEnemyStatus m_mushroomEnemy;
+    public MushroomEnemyStatus[] MushroomEnemy { get; set; }
 
-    public void Target()
+    private void Start()
     {
-        targets = GameObject.FindGameObjectsWithTag("Mushroom");
+        for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
+        {
+            MushroomEnemy[i] = m_mushroomEnemy;
+        }
+    }
+    public void GetMushroomEnemy()
+    {
+        MushroomEnemy[EnemyGenerator.Instance.SelectNum] =
+            EnemyGenerator.Instance.EnemyList[EnemyGenerator.Instance.SelectNum].
+            GetComponent<MushroomEnemyStatus>();
     }
 }
