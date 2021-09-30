@@ -18,8 +18,8 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] TextManager m_textManager;
     [SerializeField] UIManager m_uIManager;
 
-    [SerializeField] MushroomCommandBattleAnimation m_mushAnim;
     [SerializeField] EnemyTarget m_enemyTarget;
+    [SerializeField] MushroomDeath m_mushroomDeath;
     [SerializeField] PlayerAttackDamage m_playerAttackDamage;
     [SerializeField] PlayerSliderUpdate m_playerSliderUpdate;
 
@@ -80,15 +80,15 @@ public class CommandBattleManager : MonoBehaviour
 
     void GetEnemyAgilityUpdate()
     {
-        m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].m_agility);
+        m_enemyUI[0].EnemyAgilityUpdate(m_mushroomEnemy[0].Agility);
         if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_agility);
+            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].Agility);
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].m_agility);
-            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].m_agility);
+            m_enemyUI[1].EnemyAgilityUpdate(m_mushroomEnemy[1].Agility);
+            m_enemyUI[2].EnemyAgilityUpdate(m_mushroomEnemy[2].Agility);
         }
     }
     /// <summary>プレイヤーがボタンを使って攻撃するためのメソッド</summary>
@@ -99,9 +99,9 @@ public class CommandBattleManager : MonoBehaviour
             m_playerAttackDamage.GetAttackDamage(m_enemyTarget, m_player.AttackPow, 0);
             EndAttack(m_playerSliderUpdate.AgilitySlider);
             m_playerAnim.AttackAnimation();
-            if (m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_currentHP > 0)
+            if (m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].CurrentHP > 0)
             {
-                m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].DamageAnim();
+                m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].BattleAnimation.DamageAnim();
             }
         }
     }
@@ -115,9 +115,9 @@ public class CommandBattleManager : MonoBehaviour
             m_player.PlayerMPDown(3);
             EnemyHPSliderUpdate();
             EndAttack(m_playerSliderUpdate.AgilitySlider);
-            if (m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_currentHP > 0)
+            if (m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].CurrentHP > 0)
             {
-                m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].DamageAnim();
+                m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].BattleAnimation.DamageAnim();
             }
         }
     }
@@ -129,7 +129,7 @@ public class CommandBattleManager : MonoBehaviour
         {
             EnemyAttackDamage(0);
             m_playerAnim.DamageAnimation();
-            m_mushroomEnemy[0].AttackAnim();
+            m_mushroomEnemy[0].BattleAnimation.AttackAnim();
             //m_mushAnim.AttackAnim();
         }
 
@@ -139,7 +139,7 @@ public class CommandBattleManager : MonoBehaviour
             {
                 EnemyAttackDamage(1);
                 m_playerAnim.DamageAnimation();
-                m_mushroomEnemy[1].AttackAnim();
+                m_mushroomEnemy[1].BattleAnimation.AttackAnim();
             }
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
@@ -148,13 +148,13 @@ public class CommandBattleManager : MonoBehaviour
             {
                 EnemyAttackDamage(1);
                 m_playerAnim.DamageAnimation();
-                m_mushroomEnemy[1].AttackAnim();
+                m_mushroomEnemy[1].BattleAnimation.AttackAnim();
             }
             else if (m_enemyAgilitySlider[2].value == m_enemyAgilitySlider[2].maxValue)
             {
                 EnemyAttackDamage(2);
                 m_playerAnim.DamageAnimation();
-                m_mushroomEnemy[2].AttackAnim();
+                m_mushroomEnemy[2].BattleAnimation.AttackAnim();
             }
         }
     }
@@ -162,7 +162,7 @@ public class CommandBattleManager : MonoBehaviour
     {
         var damage = m_mushroomEnemy[num].GetComponent<IDamagable>();
         m_player.PlayerDamage(damage.ReceiveDamage
-        (m_mushroomEnemy[num].m_attackPow, 0, m_player.DefensePower)); ;
+        (m_mushroomEnemy[num].AttackPow, 0, m_player.DefensePower)); ;
         EndAttack(m_enemyAgilitySlider[num]);
     }
 
@@ -185,75 +185,65 @@ public class CommandBattleManager : MonoBehaviour
     void EnemyHPSliderUpdate()
     {
         m_enemyHPSlider[EnemyGenerator.Instance.SelectNum].value =
-            m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].m_currentHP;
+            m_mushroomEnemy[EnemyGenerator.Instance.SelectNum].CurrentHP;
         if (1 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_currentHP)
+            if (0 >= m_mushroomEnemy[0].CurrentHP)
             {
-                m_mushroomEnemy[0].m_agility = 0;
-                var getExp = m_mushroomEnemy[0].m_exp;
-                m_winPanel.gameObject.SetActive(true);
-                m_player.CurrentExp = m_getExp.SetExp(m_player.CurrentExp, getExp);
+                m_mushroomDeath.OneMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp);
                 m_playerHPChange.PlyerStatusChange(m_player, m_playerLevelController);
-                m_player.Agility = 0;
-                m_mushroomEnemy[0].DeathAnim();
-                //m_mushAnim.DeathAnim();
+                m_winPanel.gameObject.SetActive(true);
                 m_uIManager.WinButton.gameObject.SetActive(true);
             }
         }
         else if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_currentHP && !flag1)
+            if (0 >= m_mushroomEnemy[0].CurrentHP && !flag1)
             {
-                m_mushroomEnemy[0].m_agility = 0;
-                m_mushroomEnemy[0].DeathAnim();
+                m_mushroomEnemy[0].Agility = 0;
+                m_mushroomEnemy[0].BattleAnimation.DeathAnim();
                 flag1 = true;
             }
-            if (0 >= m_mushroomEnemy[1].m_currentHP && !flag2)
+            if (0 >= m_mushroomEnemy[1].CurrentHP && !flag2)
             {
-                m_mushroomEnemy[1].m_agility = 0;
-                m_mushroomEnemy[1].DeathAnim();
+                m_mushroomEnemy[1].Agility = 0;
+                m_mushroomEnemy[1].BattleAnimation.DeathAnim();
                 flag2 = true;
             }
-            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP)
+            if (0 >= m_mushroomEnemy[0].CurrentHP && 0 >= m_mushroomEnemy[1].CurrentHP)
             {
-                var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp;
-                m_winPanel.gameObject.SetActive(true);
-                m_player.CurrentExp = m_getExp.SetExp(m_player.CurrentExp, getExp);
+                m_mushroomDeath.TwoMushroomEnemyDeath(m_mushroomEnemy,m_player,m_getExp);
                 m_playerHPChange.PlyerStatusChange(m_player, m_playerLevelController);
-                m_player.Agility = 0;
+                m_winPanel.gameObject.SetActive(true);
                 m_uIManager.WinButton.gameObject.SetActive(true);
             }
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            if (0 >= m_mushroomEnemy[0].m_currentHP && !flag1)
+            if (0 >= m_mushroomEnemy[0].CurrentHP && !flag1)
             {
-                m_mushroomEnemy[0].m_agility = 0;
-                m_mushroomEnemy[0].DeathAnim();
+                m_mushroomEnemy[0].Agility = 0;
+                m_mushroomEnemy[0].BattleAnimation.DeathAnim();
                 flag1 = true;
             }
-            if (0 >= m_mushroomEnemy[1].m_currentHP && !flag2)
+            if (0 >= m_mushroomEnemy[1].CurrentHP && !flag2)
             {
-                m_mushroomEnemy[1].m_agility = 0;
-                m_mushroomEnemy[1].DeathAnim();
+                m_mushroomEnemy[1].Agility = 0;
+                m_mushroomEnemy[1].BattleAnimation.DeathAnim();
                 flag2 = true;
             }
-            if (0 >= m_mushroomEnemy[2].m_currentHP && !flag3)
+            if (0 >= m_mushroomEnemy[2].CurrentHP && !flag3)
             {
-                m_mushroomEnemy[2].m_agility = 0;
-                m_mushroomEnemy[2].DeathAnim();
+                m_mushroomEnemy[2].Agility = 0;
+                m_mushroomEnemy[2].BattleAnimation.DeathAnim();
                 flag3 = false;
             }
-            if (0 >= m_mushroomEnemy[0].m_currentHP && 0 >= m_mushroomEnemy[1].m_currentHP &&
-                0 >= m_mushroomEnemy[2].m_currentHP)
+            if (0 >= m_mushroomEnemy[0].CurrentHP && 0 >= m_mushroomEnemy[1].CurrentHP &&
+                0 >= m_mushroomEnemy[2].CurrentHP)
             {
-                var getExp = m_mushroomEnemy[0].m_exp + m_mushroomEnemy[1].m_exp +
-                             m_mushroomEnemy[2].m_exp;
-                m_winPanel.gameObject.SetActive(true);
-                m_player.CurrentExp = m_getExp.SetExp(m_player.CurrentExp, getExp);
+                m_mushroomDeath.ThreeMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp);
                 m_playerHPChange.PlyerStatusChange(m_player, m_playerLevelController);
-                m_player.Agility = 0;
+                m_winPanel.gameObject.SetActive(true);
                 m_uIManager.WinButton.gameObject.SetActive(true);
             }
         }
@@ -289,8 +279,8 @@ public class CommandBattleManager : MonoBehaviour
     }
     void EnemyUI(int index)
     {
-        m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].m_maxHP;
-        m_enemyHPSlider[index].value = m_mushroomEnemy[index].m_currentHP;
+        m_enemyHPSlider[index].maxValue = m_mushroomEnemy[index].MaxHP;
+        m_enemyHPSlider[index].value = m_mushroomEnemy[index].CurrentHP;
         m_enemyAgilitySlider[index].maxValue = m_mushroomEnemy[index].MaxAgility;
         m_enemyAgilitySlider[index].value = 0;
     }

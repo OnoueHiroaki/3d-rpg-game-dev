@@ -10,6 +10,6 @@ public class PlayerAttackDamage : MonoBehaviour
         var damage = enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].GetComponent<IDamagable>();
         enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].
         EnemyDamage(damage.ReceiveDamage
-        (m_attackPow, magicDamage, enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].m_defensivePower));
+        (m_attackPow, magicDamage, enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].DefensivePower));
     }
 }

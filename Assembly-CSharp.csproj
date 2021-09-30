@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyTarget.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomCommandBattleAnimation.cs" />
+    <Compile Include="Assets\Scripts\Enemy\MushroomDeath.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomEnemyStatus.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipmentBase.cs" />
     <Compile Include="Assets\Scripts\GameFinish.cs" />

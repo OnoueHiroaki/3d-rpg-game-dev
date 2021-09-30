@@ -28,9 +28,10 @@ public class PlayerSliderUpdate : MonoBehaviour
     }
     public void PlayerUI()
     {
+        Debug.Log(m_playerStatus.MaxHP);
         HPSlider.maxValue = m_playerStatus.MaxHP;
         MPSlider.value = m_playerStatus.CurrentHP;
-        HPSlider.maxValue = m_playerStatus.MaxMP;
+        HPSlider.maxValue = m_playerStatus.MaxHP;
         MPSlider.value = m_playerStatus.CurrentMP;
         AgilitySlider.maxValue = m_playerStatus.MaxAgility;
         AgilitySlider.value = 0;

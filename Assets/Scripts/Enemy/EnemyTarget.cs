@@ -9,6 +9,7 @@ public class EnemyTarget : MonoBehaviour
 
     private void Start()
     {
+        MushroomEnemy = new MushroomEnemyStatus[EnemyGenerator.Instance.RandomNum];
         for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
         {
             MushroomEnemy[i] = m_mushroomEnemy;
