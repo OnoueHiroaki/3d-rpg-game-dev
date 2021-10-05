@@ -14,12 +14,10 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] PlayerLevelController m_playerLevelController;
 
     [SerializeField] GetExp m_getExp;
-    //[SerializeField] GameObject m_winPanel;
     [SerializeField] TextManager m_textManager;
     [SerializeField] UIManager m_uIManager;
 
     [SerializeField] EnemyTarget m_enemyTarget;
-    [SerializeField] MushroomDeath m_mushroomDeath;
     [SerializeField] PlayerAttackDamage m_playerAttackDamage;
     [SerializeField] PlayerSliderUpdate m_playerSliderUpdate;
 
@@ -29,10 +27,6 @@ public class CommandBattleManager : MonoBehaviour
     PlayerStatus m_player;
     Slider[] m_enemyHPSlider = default;
     Slider[] m_enemyAgilitySlider = default;
-    bool flag1;
-    bool flag2;
-    bool flag3;
-
     void Start()
     {
         m_enemyUI = new EnemyUI[EnemyGenerator.Instance.RandomNum];
@@ -190,16 +184,19 @@ public class CommandBattleManager : MonoBehaviour
         {
             if (0 >= m_mushroomEnemy[0].CurrentHP)
             {
-                m_mushroomDeath.OneMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+               m_mushroomEnemy[0].MushroomDeath.OneMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
             }
         }
         else if (2 == EnemyGenerator.Instance.RandomNum)
         {
-            m_mushroomDeath.TwoMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+            m_mushroomEnemy[0].MushroomDeath.TwoMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+            m_mushroomEnemy[1].MushroomDeath.TwoMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
         }
         else if (3 == EnemyGenerator.Instance.RandomNum)
         {
-            m_mushroomDeath.ThreeMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+            m_mushroomEnemy[0].MushroomDeath.ThreeMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+            m_mushroomEnemy[1].MushroomDeath.ThreeMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
+            m_mushroomEnemy[2].MushroomDeath.ThreeMushroomEnemyDeath(m_mushroomEnemy, m_player, m_getExp, m_playerLevelController);
         }
     }
     void GetEnemyAgilitySlider()

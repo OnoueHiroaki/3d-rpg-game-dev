@@ -23,7 +23,9 @@ public class MushroomEnemyStatus : MonoBehaviour, IDamagable
     public int Exp { get; set; } = 30;
     public event Action OnEnemyHPChange;
     [SerializeField] MushroomCommandBattleAnimation m_battleAnimation;
+    [SerializeField] MushroomDeath m_mushroomDeath;
     public MushroomCommandBattleAnimation BattleAnimation { get => m_battleAnimation; }
+    public MushroomDeath MushroomDeath { get => m_mushroomDeath; }
     public void EnemyDamage(int damage)
     {
         CurrentHP -= damage;
