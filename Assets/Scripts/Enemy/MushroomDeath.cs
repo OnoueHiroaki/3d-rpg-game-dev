@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MushroomDeath : MonoBehaviour
 {
+    [SerializeField] UIManager m_uIManager;
+    PlayerHPChange m_playerHPChange;
     bool m_deathFlag1 = false;
     bool m_deathFlag2 = false;
     bool m_deathFlag3 = false;
-    public void OneMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp)
+    public void OneMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp, PlayerLevelController playerLevelController)
     {
         var exp = mushroomEnemy[0].Exp;
         mushroomEnemy[0].Agility = 0;
@@ -15,7 +17,7 @@ public class MushroomDeath : MonoBehaviour
         mushroomEnemy[0].BattleAnimation.DeathAnim();
         playerStatus.Agility = 0;
     }
-    public void TwoMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp)
+    public void TwoMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp, PlayerLevelController playerLevelController)
     {
         if (0 >= mushroomEnemy[0].CurrentHP && !m_deathFlag1)
         {
@@ -31,27 +33,28 @@ public class MushroomDeath : MonoBehaviour
         }
         var exp = mushroomEnemy[0].Exp + mushroomEnemy[1].Exp;
         playerStatus.CurrentExp = getExp.SetExp(playerStatus.CurrentExp, exp);
+        m_playerHPChange.PlyerStatusChange(playerStatus, playerLevelController);
         playerStatus.Agility = 0;
     }
-    public void ThreeMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp)
+    public void ThreeMushroomEnemyDeath(MushroomEnemyStatus[] mushroomEnemy, PlayerStatus playerStatus, GetExp getExp,PlayerLevelController playerLevelController)
     {
-        if (0 >= mushroomEnemy[0].CurrentHP && !flag1)
+        if (0 >= mushroomEnemy[0].CurrentHP && !m_deathFlag1)
         {
             mushroomEnemy[0].Agility = 0;
             mushroomEnemy[0].BattleAnimation.DeathAnim();
-            flag1 = true;
+            m_deathFlag1 = true;
         }
-        if (0 >= mushroomEnemy[1].CurrentHP && !flag2)
+        if (0 >= mushroomEnemy[1].CurrentHP && !m_deathFlag2)
         {
             mushroomEnemy[1].Agility = 0;
             mushroomEnemy[1].BattleAnimation.DeathAnim();
-            flag2 = true;
+            m_deathFlag2 = true;
         }
-        if (0 >= mushroomEnemy[2].CurrentHP && !flag3)
+        if (0 >= mushroomEnemy[2].CurrentHP && !m_deathFlag3)
         {
             mushroomEnemy[2].Agility = 0;
             mushroomEnemy[2].BattleAnimation.DeathAnim();
-            flag3 = false;
+            m_deathFlag3 = false;
         }
         if (0 >= mushroomEnemy[0].CurrentHP && 0 >= mushroomEnemy[1].CurrentHP &&
             0 >= mushroomEnemy[2].CurrentHP)
@@ -59,8 +62,8 @@ public class MushroomDeath : MonoBehaviour
             var exp = mushroomEnemy[0].Exp + mushroomEnemy[1].Exp + mushroomEnemy[2].Exp;
             playerStatus.CurrentExp = getExp.SetExp(playerStatus.CurrentExp, exp);
             playerStatus.Agility = 0;
-            m_playerHPChange.PlyerStatusChange(playerStatus, m_playerLevelController);
-            m_winPanel.gameObject.SetActive(true);
+            m_playerHPChange.PlyerStatusChange(playerStatus, playerLevelController);
+            m_uIManager.WinPanel.gameObject.SetActive(true);
             m_uIManager.WinButton.gameObject.SetActive(true);
         }
         
