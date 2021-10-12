@@ -9,7 +9,7 @@ public class PlayerAttackDamage : MonoBehaviour
         enemyTarget.GetMushroomEnemy();
         var damage = enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].GetComponent<IDamagable>();
         enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].
-        EnemyDamage(damage.ReceiveDamage
+        ReceiveDamage(damage.AddDamage
         (m_attackPow, magicDamage, enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].DefensivePower));
     }
 }

@@ -5,13 +5,13 @@ using UnityEngine;
 public class Recovery : MonoBehaviour
 {
     PlayerStatus m_playerStatus;
-    PlayerHPChange m_playerHPChange;
+    PlayerStatusChange m_playerHPChange;
     [SerializeField] PlayerLevelController m_playerLevelController;
     [SerializeField] GameObject m_panel;
     void Start()
     {
         m_playerStatus = PlayerStatus.Instance;
-        m_playerHPChange = PlayerHPChange.Instance;
+        m_playerHPChange = PlayerStatusChange.Instance;
         m_playerHPChange.PlyerStatusChange(m_playerStatus, m_playerLevelController);
     }
 

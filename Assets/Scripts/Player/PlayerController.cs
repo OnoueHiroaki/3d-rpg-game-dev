@@ -21,12 +21,12 @@ public class PlayerController : MonoBehaviour
 
     Animator m_anim;
     Rigidbody m_rb;
-    PlayerHPChange m_playerHPChange;
+    PlayerStatusChange m_playerHPChange;
     void Start()
     {
         m_rb = GetComponent<Rigidbody>();
         m_anim = GetComponent<Animator>();
-        m_playerHPChange = PlayerHPChange.Instance;
+        m_playerHPChange = PlayerStatusChange.Instance;
     }
 
     void Update()

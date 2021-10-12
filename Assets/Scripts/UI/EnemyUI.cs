@@ -12,7 +12,6 @@ public class EnemyUI : MonoBehaviour
 
     public Slider EnemyAgilitySlider { get { return m_enemyAgilitySlider; } private set { } }
 
-    public int SelectedNum { get; set; }
     public int Num { get; set; }
     public void OnSelect()
     {

@@ -66,10 +66,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CommandBattleManager.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyGenerator.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMove.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyStatusBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyTarget.cs" />
+    <Compile Include="Assets\Scripts\Enemy\IEnemyStatus.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomDeath.cs" />
     <Compile Include="Assets\Scripts\Enemy\MushroomEnemyStatus.cs" />
@@ -81,9 +83,9 @@
     <Compile Include="Assets\Scripts\Player\PlayerAttackDamage.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCommandBattleAnimation.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerHPChange.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerLevelController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerStatusChange.cs" />
     <Compile Include="Assets\Scripts\Recovery.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Skill\DamageSkill.cs" />
@@ -663,7 +665,12 @@
       <HintPath>C:/Users/vantan/Documents/UnityProjects/3DRpgGameDev1/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{829652B7-90CF-40D1-AEBD-95B6BD6A9942}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

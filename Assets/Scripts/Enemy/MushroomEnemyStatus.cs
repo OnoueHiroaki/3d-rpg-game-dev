@@ -1,37 +1,52 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
-public class MushroomEnemyStatus : MonoBehaviour, IDamagable
+public class MushroomEnemyStatus : EnemyStatusBase, IDamagable, IEnemyStatus
 {
-    public int MaxHP { get; set; } = 10;
-    public int CurrentHP { get; set; } = 10;
-    //敵のMP
-    public int CurrentMP { get; set; } = 3;
-    //敵の攻撃力
-    public int AttackPow { get; set; } = 3;
-    //敵の魔法攻撃力
-    public int MagicPow { get; set; } = 3;
-    //敵の守備力
-    public int DefensivePower { get; set; } = 3;
-    //敵の素早さ(素早さのvalue)
-    public int Agility { get; set; } = 20;
-    //敵の最大素早さ(素早さのMaxValue)
-    public int MaxAgility { get; set; } = 100;
-    //敵が持っている経験値
-    public int Exp { get; set; } = 30;
-    public event Action OnEnemyHPChange;
+    public int MaxHP { get => m_maxHP; set {  } }
+    public int CurrentHP { get => m_currentHP; set { } }
+    public int CurrentMP { get => m_currentMP; set { } }
+    public int AttackPow { get => m_attackPow; set { } }
+    public int MagicPow { get => m_magicPow; set { } }
+    public int DefensivePower { get => m_defensivePower; set { } }
+    public int Agility { get => m_agility; set { } }
+    public int MaxAgility { get => m_maxAgility; set { } }
+    public int Exp { get => m_exp; set { } }
+
+
     [SerializeField] MushroomCommandBattleAnimation m_battleAnimation;
     [SerializeField] MushroomDeath m_mushroomDeath;
+    [SerializeField] IntReactiveProperty m_mushroomMaxHP = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomCurrentHP = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomCurrentMP = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomAttackPow = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomMagicPow = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomDefensivePower = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomAgility = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomMaxAgility = new IntReactiveProperty(0);
+    [SerializeField] IntReactiveProperty m_mushroomExp = new IntReactiveProperty(0);
+
     public MushroomCommandBattleAnimation BattleAnimation { get => m_battleAnimation; }
     public MushroomDeath MushroomDeath { get => m_mushroomDeath; }
-    public void EnemyDamage(int damage)
+    private void Start()
+    {
+        m_mushroomMaxHP.Value = MaxHP;
+        m_mushroomCurrentHP.Value = CurrentHP;
+        m_mushroomCurrentMP.Value = CurrentMP;
+        m_mushroomAttackPow.Value = AttackPow;
+        m_mushroomMagicPow.Value = MagicPow;
+        m_mushroomDefensivePower.Value = DefensivePower;
+        m_mushroomAgility.Value = Agility;
+        m_mushroomMaxAgility.Value = MaxAgility;
+        m_mushroomExp.Value = Exp;
+    }
+    public void ReceiveDamage(int damage)
     {
         CurrentHP -= damage;
-        OnEnemyHPChange?.Invoke();
     }
-    int IDamagable.ReceiveDamage(int attack, int magicDamage, int defense)
+    public int AddDamage(int attack, int magicDamage, int defense)
     {
         if (0 >= attack + magicDamage - defense / 2)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
@@ -23,7 +22,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>敵を生成する関数</summary>
     void EnemyGenerate()
     {
-        RandomNum = UnityEngine.Random.Range(1, 4);
+        RandomNum = Random.Range(1, 4);
         EnemyList = new GameObject[RandomNum];
         for (int i = 0; i < RandomNum; i++)
         {

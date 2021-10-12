@@ -21,9 +21,10 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] PlayerAttackDamage m_playerAttackDamage;
     [SerializeField] PlayerSliderUpdate m_playerSliderUpdate;
 
-    PlayerHPChange m_playerHPChange;
+    PlayerStatusChange m_playerHPChange;
     EnemyUI[] m_enemyUI;
-    MushroomEnemyStatus[] m_mushroomEnemy;
+    //MushroomEnemyStatus[] m_mushroomEnemy;
+    IEnemyStatus[] m_enemyData;
     PlayerStatus m_player;
     Slider[] m_enemyHPSlider = default;
     Slider[] m_enemyAgilitySlider = default;
@@ -32,17 +33,17 @@ public class CommandBattleManager : MonoBehaviour
         m_enemyUI = new EnemyUI[EnemyGenerator.Instance.RandomNum];
         m_enemyHPSlider = new Slider[EnemyGenerator.Instance.RandomNum];
         m_enemyAgilitySlider = new Slider[EnemyGenerator.Instance.RandomNum];
-        m_mushroomEnemy = new MushroomEnemyStatus[EnemyGenerator.Instance.RandomNum];
+        m_enemyData = new IEnemyStatus[EnemyGenerator.Instance.RandomNum];
 
         m_player = PlayerStatus.Instance;
-        m_playerHPChange = PlayerHPChange.Instance;
+        m_playerHPChange = PlayerStatusChange.Instance;
         m_playerHPChange.PlyerStatusChange(m_player, m_playerLevelController);
 
         for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
         {
             m_enemyUI[i] = m_enemyUIGenerator.EnemyUIArray[i].GetComponent<EnemyUI>();
-            m_mushroomEnemy[i] = m_enemyGenerator.EnemyList[i]
-            .GetComponent<MushroomEnemyStatus>();
+            m_enemyData[i] = m_enemyGenerator.EnemyList[i]
+            .GetComponent<IEnemyStatus>();
         }
         GetEnemyHPSlider();
         GetEnemyAgilitySlider();
@@ -53,7 +54,7 @@ public class CommandBattleManager : MonoBehaviour
 
         m_player.OnPlayeHPChange += m_playerSliderUpdate.PlayerHPSliderUpdate;
         m_player.OnPlayerMPChange += m_playerSliderUpdate.PlayerMPSliderUpdate;
-        m_mushroomEnemy[0].OnEnemyHPChange += EnemyHPSliderUpdate;
+        m_enemyData[0].OnEnemyHPChange += EnemyHPSliderUpdate;
         if (2 == EnemyGenerator.Instance.RandomNum)
         {
             m_mushroomEnemy[1].OnEnemyHPChange += EnemyHPSliderUpdate;

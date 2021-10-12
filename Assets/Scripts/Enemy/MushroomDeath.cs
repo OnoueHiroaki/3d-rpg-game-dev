@@ -5,7 +5,7 @@ using UnityEngine;
 public class MushroomDeath : MonoBehaviour
 {
     UIManager m_uIManager;
-    PlayerHPChange m_playerHPChange;
+    PlayerStatusChange m_playerHPChange;
     bool m_deathFlag1 = false;
     bool m_deathFlag2 = false;
     bool m_deathFlag3 = false;
