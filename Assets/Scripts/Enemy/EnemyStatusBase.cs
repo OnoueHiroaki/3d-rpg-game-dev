@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
-public class EnemyStatusBase : MonoBehaviour,IEnemyStatus
+public class EnemyStatusBase : MonoBehaviour, IEnemyStatus
 {
     protected int m_maxHP;
     protected int m_currentHP;
@@ -15,16 +16,16 @@ public class EnemyStatusBase : MonoBehaviour,IEnemyStatus
     protected int m_maxAgility;
     protected int m_exp;
 
-    public virtual int MaxHP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int CurrentHP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int MaxMP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int CurrentMP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int AttackPow { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int MagicPow { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int DefensivePower { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int Agility { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int MaxAgility { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public virtual int Exp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.MaxHP { get; set; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.CurrentHP { get; set; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.MaxMP { get; set; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.CurrentMP { get; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.AttackPow { get ; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.MagicPow { get ; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.DefensivePower { get ; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.Agility { get ; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.MaxAgility { get ; set ; }
+    IReadOnlyReactiveProperty<int> IEnemyStatus.Exp { get ; set ; }
 
     public virtual void ReceiveDamage(int damage)
     {

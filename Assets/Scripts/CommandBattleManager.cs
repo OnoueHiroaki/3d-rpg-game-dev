@@ -17,7 +17,7 @@ public class CommandBattleManager : MonoBehaviour
     [SerializeField] TextManager m_textManager;
     [SerializeField] UIManager m_uIManager;
 
-    [SerializeField] EnemyTarget m_enemyTarget;
+    //[SerializeField] EnemyTarget m_enemyTarget;
     [SerializeField] PlayerAttackDamage m_playerAttackDamage;
     [SerializeField] PlayerSliderUpdate m_playerSliderUpdate;
 
@@ -210,24 +210,24 @@ public class CommandBattleManager : MonoBehaviour
 
     void StartEnemyUI()
     {
-        if (1 == EnemyGenerator.Instance.RandomNum)
+        for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
         {
-            EnemyUI(0);
+            EnemyUI(i);
         }
-        else if (2 == EnemyGenerator.Instance.RandomNum)
-        {
-            for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
-            {
-                EnemyUI(i);
-            }
-        }
-        else if (3 == EnemyGenerator.Instance.RandomNum)
-        {
-            for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
-            {
-                EnemyUI(i);
-            }
-        }
+        //if (1 == EnemyGenerator.Instance.RandomNum)
+        //{
+        //    EnemyUI(0);
+        //}
+        //else if (2 == EnemyGenerator.Instance.RandomNum)
+        //{
+        //}
+        //else if (3 == EnemyGenerator.Instance.RandomNum)
+        //{
+        //    for (int i = 0; i < EnemyGenerator.Instance.RandomNum; i++)
+        //    {
+        //        EnemyUI(i);
+        //    }
+        //}
     }
     void EnemyUI(int index)
     {

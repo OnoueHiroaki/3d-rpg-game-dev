@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public interface IEnemyStatus
 {
-    public int MaxHP { get; set; }
-    public int CurrentHP { get; set; }
-    public int MaxMP { get; set; }
-    public int CurrentMP { get; set; }
-    public int AttackPow { get; set; }
-    public int MagicPow { get; set; }
-    public int DefensivePower { get; set; }
-    public int Agility { get; set; }
-    public int MaxAgility { get; set; }
-    public int Exp { get; set; }
+    IReadOnlyReactiveProperty<int> MaxHP { get; set; }
+    IReadOnlyReactiveProperty<int> CurrentHP { get; set; }
+    IReadOnlyReactiveProperty<int> MaxMP { get; set; }
+    IReadOnlyReactiveProperty<int> CurrentMP { get; set; }
+    IReadOnlyReactiveProperty<int> AttackPow { get; set; }
+    IReadOnlyReactiveProperty<int> MagicPow { get; set; }
+    IReadOnlyReactiveProperty<int> DefensivePower { get; set; }
+    IReadOnlyReactiveProperty<int> Agility { get; set; }
+    IReadOnlyReactiveProperty<int> MaxAgility { get; set; }
+    IReadOnlyReactiveProperty<int> Exp { get; set; }
     void ReceiveDamage(int damage);
 }

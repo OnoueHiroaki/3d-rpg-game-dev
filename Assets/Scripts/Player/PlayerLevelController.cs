@@ -12,7 +12,7 @@ public class PlayerLevelController : ScriptableObject
 [System.Serializable]
 public class PlayerLevel
 {
-    [SerializeField] string m_levelName;
+    [SerializeField] private string m_levelName;
     [SerializeField] int m_level;
     public int Level { get => m_level; }
 

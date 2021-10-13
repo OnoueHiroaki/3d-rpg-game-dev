@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerAttackDamage : MonoBehaviour
 {
-    public void GetAttackDamage(EnemyTarget enemyTarget ,int m_attackPow, int magicDamage)
+
+    public void GetAttackDamage(int m_attackPow, int magicDamage)
     {
-        enemyTarget.GetMushroomEnemy();
-        var damage = enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].GetComponent<IDamagable>();
-        enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].
+        var damage = EnemyGenerator.Instance.EnemyList[EnemyGenerator.Instance.SelectNum].GetComponent<IDamagable>();
+        EnemyGenerator.Instance.EnemyList[EnemyGenerator.Instance.SelectNum].
         ReceiveDamage(damage.AddDamage
         (m_attackPow, magicDamage, enemyTarget.MushroomEnemy[EnemyGenerator.Instance.SelectNum].DefensivePower));
     }
